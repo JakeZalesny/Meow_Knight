@@ -4,7 +4,7 @@ import Rect from "../Rect.js";
 function addDebug(entity) {
   entity.children = entity.children || [];
   entity.children.push(
-    new Rect(entity.w, entity.h, { fill: "rgba(255, 0, 0, 0.3)" })
+    new Rect(entity.w, entity.h, { fill: "rgba(0, 255, 0, 0.3)" })
   );
   if (entity.hitBox) {
     const { x, y, w, h } = entity.hitBox;

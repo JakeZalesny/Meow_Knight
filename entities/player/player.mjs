@@ -29,13 +29,14 @@ const animations = {
 
 class Player extends TileSprite {
     constructor(controls) {
-        super(animations["idle"], 24, 24);
+        super(animations["idle"], 16, 26);
         this.pos = {x:0, y: 0};
         this.anchor = { x: 0, y: 0 };
-        this.scale = { x: 3, y: 3 };
+        this.scale = { x: 2, y: 2 };
         this.pivot = { x: 0, y: 0 };
         this.rotation = 0;
         this.controls = controls
+        this.hitBox = {x: 1, y: 1, w: 13, h: 16}
         const{anims} = this
 
         anims.add("idle", [0, 1, 2, 3, 4, 5].map(y => ({x:0, y})), .1)

@@ -10,7 +10,7 @@ const controls = new KeyControls();
 for(let i = 0; i < 30; i++) {
     const player = new Player(controls);
     player.pos = {x: window.innerWidth / 2, y: window.innerHeight / 2};
-    scene.add(player);
+    scene.add(player); 
 }
 
 game.run();

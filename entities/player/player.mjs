@@ -28,7 +28,7 @@ const animations = {
 
 class Player extends TileSprite {
     constructor(controls) {
-        super(animations["idle"], 16, 16);
+        super(animations["idle"], 24, 24);
         this.pos = {x:0, y: 0};
         this.anchor = { x: 0, y: 0 };
         this.scale = { x: 2, y: 2 };

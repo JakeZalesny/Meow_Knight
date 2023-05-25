@@ -32,7 +32,7 @@ class Player extends TileSprite {
         super(animations["idle"], 24, 24);
         this.pos = {x:0, y: 0};
         this.anchor = { x: 0, y: 0 };
-        this.scale = { x: 2, y: 2 };
+        this.scale = { x: 3, y: 3 };
         this.pivot = { x: 0, y: 0 };
         this.rotation = 0;
         this.controls = controls

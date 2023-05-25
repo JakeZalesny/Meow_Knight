@@ -13,6 +13,7 @@ const jump = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Jump.p
 const damaged = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Take_Damage.png");
 const death = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Death.png");
 
+
 const animations = {
     "idle":idle, 
     "run":run,
@@ -35,13 +36,19 @@ class Player extends TileSprite {
         this.pivot = { x: 0, y: 0 };
         this.rotation = 0;
         this.controls = controls
+        const{anims} = this
+
+        anims.add("idle", [0, 1, 2, 3, 4, 5].map(y => ({x:0, y})), .4)
+        anims.play("idle")
+
     }
 
-    update() {
-        const {x, y} = this.controls;
-        if(x == 1 || x == -1) {
-            this.texture = animations["run"];
-        }
+    update(dt) {
+        super.update(dt)
+        // const {x, y} = this.controls;
+        // if(x == 1 || x == -1) {
+        //     this.texture = animations["run"];
+        // }
     }
 }
 

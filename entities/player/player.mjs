@@ -38,7 +38,7 @@ class Player extends TileSprite {
         this.controls = controls
         const{anims} = this
 
-        anims.add("idle", [0, 1, 2, 3, 4, 5].map(y => ({x:0, y})), .4)
+        anims.add("idle", [0, 1, 2, 3, 4, 5].map(y => ({x:0, y})), .1)
         anims.play("idle")
 
     }

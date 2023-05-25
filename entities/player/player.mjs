@@ -40,6 +40,7 @@ class Player extends TileSprite {
         const{anims} = this
 
         anims.add("idle", [0, 1, 2, 3, 4, 5].map(y => ({x:0, y})), .1)
+        this.anims.add("run", [0, 1, 2, 3, 4, 5].map(y=> ({x:0, y})), 0.1);
         anims.play("idle")
 
     }
@@ -49,10 +50,10 @@ class Player extends TileSprite {
         const {x, y} = this.controls;
         if(x == 1 || x == -1) {
             this.texture = animations["run"];
-            this.anims.add("run", [0, 1, 2, 3, 4, 5, 6, 7].map(y=> ({x:0, y})), 0.1);
             this.anims.play("run");
         }
         else {
+            this.texture = animations["idle"]
             this.anims.play("idle");
         }
         

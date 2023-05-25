@@ -45,10 +45,16 @@ class Player extends TileSprite {
 
     update(dt) {
         super.update(dt)
-        // const {x, y} = this.controls;
-        // if(x == 1 || x == -1) {
-        //     this.texture = animations["run"];
-        // }
+        const {x, y} = this.controls;
+        if(x == 1 || x == -1) {
+            this.texture = animations["run"];
+            this.anims.add("run", [0, 1, 2, 3, 4, 5, 6, 7].map(y=> ({x:0, y})), 0.1);
+            this.anims.play("run");
+        }
+        else {
+            this.anims.play("idle");
+        }
+        
     }
 }
 

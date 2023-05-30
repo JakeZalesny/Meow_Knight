@@ -4,7 +4,7 @@ import Player from "./entities/player/player.mjs";
 import entity from "./pop/utils/entity.js";
 import Level from "./resources/Levels/testLevel.mjs";
 
-const game = new Game(window.innerWidth - 8, window.innerHeight - 20);
+const game = new Game(window.innerWidth, window.innerHeight - 4);
 const {scene, w, h} = game; 
 const level = new Level(w * 4, h * 4)
 const controls = new KeyControls(); 

@@ -3,7 +3,7 @@ import Sprite from "../../pop/Sprite.js";
 const { TileSprite, Texture, math } = pop;
 
 const idle = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_idle.png");
-const run = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Run.png");
+const run = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Run_2.png");
 const attack_1 = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Attack_1.png");
 const attack_2 = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Attack_2.png");
 const attack_3 = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Attack_3.png");
@@ -29,7 +29,7 @@ const animations = {
 
 class Player extends TileSprite {
     constructor(controls) {
-        super(animations["idle"], 16, 26);
+        super(animations["idle"], 16, 17);
         this.pos = {x:0, y: 0};
         this.anchor = { x: 0, y: 0 };
         this.scale = { x: 2, y: 2 };
@@ -40,7 +40,7 @@ class Player extends TileSprite {
         const{anims} = this
 
         anims.add("idle", [0, 1, 2, 3, 4, 5].map(y => ({x:0, y})), .1)
-        this.anims.add("run", [0, 1, 2, 3, 4, 5].map(y=> ({x:0, y})), 0.1);
+        this.anims.add("run", [0, 1, 2, 3, 4, 5, 6, 7, 8].map(y=> ({x:0, y})), 0.1);
         anims.play("idle")
 
     }
@@ -51,6 +51,10 @@ class Player extends TileSprite {
         this.pos.x += x * dt * 150
         this.pos.y += y * dt * 150
 
+        if(x == 1 || x == -1) {
+            this.texture = animations["run"];
+
+        }
         
     }
 }

@@ -2,7 +2,7 @@ import pop from "../../pop/index.js";
 import Sprite from "../../pop/Sprite.js";
 const { TileSprite, Texture, math } = pop;
 
-const idle = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_idle.png");
+const idle = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Idle_2.png");
 const run = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Run_2.png");
 const attack_1 = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Attack_1.png");
 const attack_2 = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Attack_2.png");
@@ -51,9 +51,23 @@ class Player extends TileSprite {
         this.pos.x += x * dt * 150
         this.pos.y += y * dt * 150
 
-        if(x == 1 || x == -1) {
+        if(x == 1) {
             this.texture = animations["run"];
+            this.scale.x = 2; 
+            this.anchor.x = 0; 
 
+        }
+
+        else if(x == -1) {
+            this.texture = animations["run"];
+            this.scale.x = -2;  
+            this.anchor.x = 32;  
+        }
+        else {
+            this.texture = animations["idle"];
+            this.rotation = 0; 
+            this.scale.x = 2; 
+            this.anchor.x = 0; 
         }
         
     }

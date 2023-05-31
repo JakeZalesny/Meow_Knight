@@ -2,8 +2,8 @@ import pop from "../../pop/index.js";
 import Sprite from "../../pop/Sprite.js";
 const { TileSprite, Texture, math } = pop;
 
-const idle = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Idle_2.png");
-const run = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Run_2.png");
+const idle = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Idle_32.png");
+const run = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Run_32.png");
 const attack_1 = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Attack_1.png");
 const attack_2 = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Attack_2.png");
 const attack_3 = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Attack_3.png");
@@ -29,7 +29,7 @@ const animations = {
 
 class Player extends TileSprite {
     constructor(controls) {
-        super(animations["idle"], 16, 17);
+        super(animations["idle"], 32, 34);
         this.pos = {x:0, y: 0};
         this.anchor = { x: 0, y: 0 };
         this.scale = { x: 2, y: 2 };

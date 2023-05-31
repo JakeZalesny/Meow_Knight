@@ -47,10 +47,28 @@ class Player extends TileSprite {
 
     update(dt) {
         super.update(dt)
-        const {x, y} = this.controls;
+        const {x, y, action} = this.controls;
         this.pos.x += x * dt * 150
         this.pos.y += y * dt * 150
+        
+        //Dodge movement handling
+        if(action && x != 0 && y != 0) {
+            this.pos.x += x * dt * 300;
+            this.pos.y += x * dt * 300; 
 
+
+        }
+
+        else if(action && x != 0) {
+            this.pos.x += x * dt * 300;
+        }
+
+        
+        else if(action && y != 0) {
+            this.pos.y += y * dt * 300;
+        }
+
+        // Normal movement handling
         if(x == 1) {
             this.texture = animations["run"];
             this.scale.x = 2; 

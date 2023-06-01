@@ -20,19 +20,13 @@ camera.add(level)
 const baddie = new Baddie(player, 1)
 baddie.pos = {x: w/2 + 200, y: h/2 + 100}
 
-
-// for(let i = 0; i < 10; i++) {
-//     const baddy = camera.add(new Baddie(player, math.randf(1, 2)))
-//     baddy.pos = {x:math.rand(w), y:math.rand(h)}
-// }
-
-
 camera.add(player);
 camera.add(baddie)
 
 
 
 
-    
 
-game.run();
+game.run(() => {
+
+});

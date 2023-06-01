@@ -3,6 +3,7 @@ const { Game, KeyControls, Camera, entity, math } = pop;
 import Player from "./entities/player/player.mjs";
 import Level from "./resources/Levels/testLevel.mjs";
 import MouseControls from "./pop/controls/MouseControls.js";
+import Baddie from "./entities/baddies/baddie.mjs";
 
 const game = new Game(window.innerWidth, window.innerHeight - 4);
 const {scene, w, h} = game; 

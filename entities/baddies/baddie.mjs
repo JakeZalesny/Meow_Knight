@@ -1,7 +1,7 @@
 import pop from "../../pop/index.js";
 const { TileSprite, Texture, math } = pop;
 
-const texture = new Texture("./resources/skeleton/Skeleton.png")
+const texture = new Texture("./resources/skeleton/Sprites/Skeleton.png")
 // const idle = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Idle_32.png");
 // const run = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Run_32.png");
 // const attack_1 = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Attack_1.png");
@@ -27,68 +27,44 @@ const texture = new Texture("./resources/skeleton/Skeleton.png")
 //     "death":death
 // }
 
-class Player extends TileSprite {
-    constructor(controls) {
-        super(animations["idle"], 32, 34);
+class Baddie extends TileSprite {
+    constructor(target) {
+        super(texture, 32, 32);
         this.pos = {x:0, y: 0};
         this.anchor = { x: 0, y: 0 };
         this.scale = { x: 2, y: 2 };
         this.pivot = { x: 0, y: 0 };
         this.rotation = 0;
-        this.controls = controls
-        this.hitBox = {x: 1, y: 1, w: 13, h: 16}
+        this.target = target
+        // this.controls = controls
+        this.hitBox = {x: 8, y: 8, w: 16, h: 16}
         const{anims} = this
 
-        anims.add("idle", [0, 1, 2, 3, 4, 5].map(y => ({x:0, y})), .1)
-        this.anims.add("run", [0, 1, 2, 3, 4, 5, 6, 7, 8].map(y=> ({x:0, y})), 0.1);
-        anims.play("idle")
+        anims.add("idle_reg", [0, 1, 2, 3].map(x => ({x, y:0})), .1)
+        anims.play("idle_reg")
 
     }
 
     update(dt) {
         super.update(dt)
-        const {x, y, action} = this.controls;
-        this.pos.x += x * dt * 150
-        this.pos.y += y * dt * 150
-        
-        //Dodge movement handling
-        if(action && x != 0 && y != 0) {
-            this.pos.x += x * dt * 300;
-            this.pos.y += x * dt * 300; 
 
-
-        }
-
-        else if(action && x != 0) {
-            this.pos.x += x * dt * 300;
-        }
-
-        
-        else if(action && y != 0) {
-            this.pos.y += y * dt * 300;
-        }
-
-        // Normal movement handling
-        if(x == 1) {
-            this.texture = animations["run"];
-            this.scale.x = 2; 
-            this.anchor.x = 0; 
-
-        }
-
-        else if(x == -1) {
-            this.texture = animations["run"];
-            this.scale.x = -2;  
-            this.anchor.x = 32;  
-        }
-        else {
-            this.texture = animations["idle"];
-            this.rotation = 0; 
-            this.scale.x = 2; 
-            this.anchor.x = 0; 
+        if(this.pos.x < this.target.pos.x){
+            this.pos.x += dt * 60
         }
         
-    }
+        if(this.pos.x > this.target.pos.x){
+            this.pos.x -= dt * 60
+        }
+
+        if(this.pos.y < this.target.pos.y){
+            this.pos.y += dt * 60
+        }
+
+        if(this.pos.y > this.target.pos.y){
+            this.pos.y -= dt * 60
+        }
+
+        }
 }
 
-export default Player; 
+export default Baddie; 

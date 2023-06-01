@@ -13,6 +13,7 @@ class Baddie extends TileSprite {
         this.rotation = 0;
         this.target = target
         this.speed = speed
+        this.agro = false
         this.hitBox = {x: 8, y: 8, w: 16, h: 16}
         const{anims} = this
 
@@ -24,27 +25,31 @@ class Baddie extends TileSprite {
     update(dt, t) {
         super.update(dt, t)
 
-        if(entity.distance(this.target, this) > 200){
-        }else{
-        
+        if(entity.distance(this.target, this) < 200){
+            this.agro = true
+        }
+        else if(entity.distance(this.target, this) > 300){
+            this.agro = false
+        }
 
-        if(this.pos.x < this.target.pos.x - this.target.hitBox.w * 3.8){
+        if(this.agro == true){
+
+            
+            if(this.pos.x < this.target.pos.x - this.target.hitBox.w * 3.8){
             this.pos.x +=  dt * 60 * this.speed
         }
-        
         if(this.pos.x > this.target.pos.x + this.target.hitBox.w){
             this.pos.x -= dt * 60 * this.speed
         }
-
         if(this.pos.y < this.target.pos.y + this.target.hitBox.h * 1.4){
             this.pos.y += dt * 60 * this.speed
         }
-
         if(this.pos.y > this.target.pos.y + this.target.hitBox.h * 1.4){
             this.pos.y -= dt * 60 * this.speed
         }
     }
-
+        
+        
         }
 }
 

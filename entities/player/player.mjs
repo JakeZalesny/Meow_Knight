@@ -100,7 +100,7 @@ class Player extends TileSprite {
             this.texture = animations["attack_1"];
             console.log(this.frame)
             if(this.frame.y == 5) {
-                // attacking = false;
+                this.attacking = false;
                 this.frame.y = 0;
                 this.texture = animations["idle"]; 
             }

@@ -38,11 +38,13 @@ class Player extends TileSprite {
         this.controls = controls
         this.mousecontrols = mousecontrols
         this.hitBox = {x: 1, y: 18, w: 13, h: 16}
+        this.attacking = false; 
         const{anims} = this
 
         anims.add("idle", [0, 1, 2, 3, 4, 5].map(y => ({x:0, y})), 0.1)
         this.anims.add("run", [0, 1, 2, 3, 4, 5, 6, 7, 8].map(y=> ({x:0, y})), 0.1);
         this.anims.add("dodge", [0, 1, 2, 3, 4, 5, 6, 7].map(y=> ({x:0, y})), 0.1);
+        this.anims.add("attack_1", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(y=> ({x:0, y})), 0.1);
         anims.play("idle")
 
     }
@@ -63,6 +65,10 @@ class Player extends TileSprite {
             this.pos.x += x * dt * 300;
             this.pos.y += x * dt * 300; 
 
+        }
+
+        else if(this.mousecontrols.pressed) {
+            this.attacking = true; 
         }
 
         else if(action && x != 0) {
@@ -89,12 +95,25 @@ class Player extends TileSprite {
             this.scale.x = -2;  
             this.anchor.x = 32;  
         }
+
+        else if(this.attacking) {
+            this.texture = animations["attack_1"];
+            console.log(this.frame)
+            if(this.frame.y == 5) {
+                // attacking = false;
+                this.frame.y = 0;
+                this.texture = animations["idle"]; 
+            }
+        }
         else {
             this.texture = animations["idle"];
             this.rotation = 0; 
             this.scale.x = 2; 
             this.anchor.x = 0; 
         }
+
+
+        this.mousecontrols.update(); 
         
     }
 }

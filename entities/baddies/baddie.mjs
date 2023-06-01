@@ -1,34 +1,10 @@
 import pop from "../../pop/index.js";
-const { TileSprite, Texture, math } = pop;
+const { TileSprite, Texture, math, entity } = pop;
 
 const texture = new Texture("./resources/skeleton/Sprites/Skeleton.png")
-// const idle = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Idle_32.png");
-// const run = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Run_32.png");
-// const attack_1 = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Attack_1.png");
-// const attack_2 = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Attack_2.png");
-// const attack_3 = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Attack_3.png");
-// const attack_4 = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Attack_4.png");
-// const dodge = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Dodge.png");
-// const jump = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Jump.png");
-// const damaged = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Take_Damage.png");
-// const death = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Death.png");
-
-
-// const animations = {
-//     "idle":idle, 
-//     "run":run,
-//     "attack_1":attack_1,
-//     "attack_2":attack_2,
-//     "attack_3":attack_3,
-//     "attack_4":attack_4,
-//     "dodge":dodge,
-//     "jump":jump,
-//     "damaged":damaged,
-//     "death":death
-// }
 
 class Baddie extends TileSprite {
-    constructor(target) {
+    constructor(target, speed) {
         super(texture, 32, 32);
         this.pos = {x:0, y: 0};
         this.anchor = { x: 0, y: 0 };
@@ -36,7 +12,7 @@ class Baddie extends TileSprite {
         this.pivot = { x: 0, y: 0 };
         this.rotation = 0;
         this.target = target
-        // this.controls = controls
+        this.speed = speed
         this.hitBox = {x: 8, y: 8, w: 16, h: 16}
         const{anims} = this
 
@@ -45,24 +21,29 @@ class Baddie extends TileSprite {
 
     }
 
-    update(dt) {
-        super.update(dt)
+    update(dt, t) {
+        super.update(dt, t)
 
-        if(this.pos.x < this.target.pos.x){
-            this.pos.x += dt * 60
+        if(entity.distance(this.target, this) > 200){
+        }else{
+        
+
+        if(this.pos.x < this.target.pos.x - this.target.hitBox.w * 3.8){
+            this.pos.x +=  dt * 60 * this.speed
         }
         
-        if(this.pos.x > this.target.pos.x){
-            this.pos.x -= dt * 60
+        if(this.pos.x > this.target.pos.x + this.target.hitBox.w){
+            this.pos.x -= dt * 60 * this.speed
         }
 
-        if(this.pos.y < this.target.pos.y){
-            this.pos.y += dt * 60
+        if(this.pos.y < this.target.pos.y + this.target.hitBox.h * 1.4){
+            this.pos.y += dt * 60 * this.speed
         }
 
-        if(this.pos.y > this.target.pos.y){
-            this.pos.y -= dt * 60
+        if(this.pos.y > this.target.pos.y + this.target.hitBox.h * 1.4){
+            this.pos.y -= dt * 60 * this.speed
         }
+    }
 
         }
 }

@@ -1,7 +1,6 @@
 import pop from "./pop/index.js";
-const { Game, KeyControls, Camera } = pop;
+const { Game, KeyControls, Camera, entity, math } = pop;
 import Player from "./entities/player/player.mjs";
-import entity from "./pop/utils/entity.js";
 import Level from "./resources/Levels/testLevel.mjs";
 import MouseControls from "./pop/controls/MouseControls.js";
 
@@ -14,13 +13,22 @@ const mousecontrols = new MouseControls();
 const player = new Player(controls, mousecontrols);
 player.pos = {x: w / 2, y: h / 2};
 
-
-
-
 const camera = scene.add(new Camera(player, {w: w, h: h}, {w: level.w, h: level.h}))
-
 camera.add(level)
-camera.add(player); 
+
+const baddie = new Baddie(player, 1)
+baddie.pos = {x: w/2 + 200, y: h/2 + 100}
+
+
+// for(let i = 0; i < 10; i++) {
+//     const baddy = camera.add(new Baddie(player, math.randf(1, 2)))
+//     baddy.pos = {x:math.rand(w), y:math.rand(h)}
+// }
+
+
+camera.add(player);
+camera.add(baddie)
+
 
 
 

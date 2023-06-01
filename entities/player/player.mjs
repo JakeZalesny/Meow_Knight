@@ -35,9 +35,9 @@ class Player extends TileSprite {
         this.scale = { x: 2, y: 2 };
         this.pivot = { x: 0, y: 0 };
         this.rotation = 0;
-        this.controls = controls;
-        this.mousecontrols = mousecontrols;
-        this.hitBox = {x: 1, y: 1, w: 13, h: 16}
+        this.controls = controls
+        this.mousecontrols = mousecontrols
+        this.hitBox = {x: 1, y: 18, w: 13, h: 16}
         const{anims} = this
 
         anims.add("idle", [0, 1, 2, 3, 4, 5].map(y => ({x:0, y})), 0.1)
@@ -55,7 +55,7 @@ class Player extends TileSprite {
         this.pos.y += y * dt * 150
         
         // Attacks
-        
+
 
         //Dodge movement handling
         if(action && x != 0 && y != 0) {

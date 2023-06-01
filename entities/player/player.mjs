@@ -38,11 +38,12 @@ class Player extends TileSprite {
         this.controls = controls
         this.mousecontrols = mousecontrols
         this.hitBox = {x: 1, y: 18, w: 13, h: 16}
-        this.attacking = false; 
+        this.attacking = false;
+        this.dodging = false;  
         const{anims} = this
 
         anims.add("idle", [0, 1, 2, 3, 4, 5].map(y => ({x:0, y})), 0.1)
-        this.anims.add("run", [0, 1, 2, 3, 4, 5, 6, 7, 8].map(y=> ({x:0, y})), 0.1);
+        this.anims.add("run", [0, 1, 2, 3, 4, 5, 6, 7].map(y=> ({x:0, y})), 0.1);
         this.anims.add("dodge", [0, 1, 2, 3, 4, 5, 6, 7].map(y=> ({x:0, y})), 0.1);
         this.anims.add("attack_1", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(y=> ({x:0, y})), 0.1);
         anims.play("idle")
@@ -55,15 +56,13 @@ class Player extends TileSprite {
         const {up, down, move} = this.mousecontrols;
         this.pos.x += x * dt * 150
         this.pos.y += y * dt * 150
-        
         // Attacks
 
 
         //Dodge movement handling
         if(action && x != 0 && y != 0) {
-            this.texture = animations["dodge"]
-            this.pos.x += x * dt * 300;
-            this.pos.y += x * dt * 300; 
+            this.dodging = true; 
+
 
         }
 
@@ -72,44 +71,59 @@ class Player extends TileSprite {
         }
 
         else if(action && x != 0) {
-            this.pos.x += x * dt * 300;
-            this.texture = animations["dodge"]
+            this.dodging = true; 
         }
 
         
         else if(action && y != 0) {
-            this.pos.y += y * dt * 300;
-            this.texture = animations["dodge"]
+            this.dodging = true; 
         }
 
         // Normal movement handling
         else if(x == 1) {
             this.texture = animations["run"];
+            this.anims.play("run");
             this.scale.x = 2; 
             this.anchor.x = 0; 
+            this.anims.play("run");
 
         }
 
         else if(x == -1) {
             this.texture = animations["run"];
             this.scale.x = -2;  
-            this.anchor.x = 32;  
+            this.anchor.x = 32;
+            this.anims.play("run");  
         }
 
         else if(this.attacking) {
             this.texture = animations["attack_1"];
-            console.log(this.frame)
-            if(this.frame.y == 5) {
+            this.anims.play("attack_1");
+            if(this.frame.y == 9) {
                 this.attacking = false;
                 this.frame.y = 0;
                 this.texture = animations["idle"]; 
             }
         }
+
+        else if(this.dodging) {
+            this.texture = animations["dodge"];
+            this.pos.x += x * dt * 250;
+            this.pos.y += x * dt * 250; 
+            this.anims.play("dodge");
+            if(this.frame.y == 7) {
+                this.dodging = false;
+                this.frame.y = 0;
+                this.texture = animations["idle"]; 
+            }
+        }
+
         else {
             this.texture = animations["idle"];
+            this.anims.play("idle"); 
             this.rotation = 0; 
             this.scale.x = 2; 
-            this.anchor.x = 0; 
+            this.anchor.x = 0;
         }
 
 

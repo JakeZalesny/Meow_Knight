@@ -63,7 +63,7 @@ class Player extends TileSprite {
         }
         
         //Dodge movement handling
-        if(action && !this.attacking) {
+        if(action && !this.attacking && (x || y)) {
             this.dodging = true; 
         }
 

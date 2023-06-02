@@ -13,6 +13,13 @@ function addDebug(entity) {
     hb.pos.y = y;
     entity.children.push(hb);
   }
+  if (entity.hurtBox) {
+    const { x, y, w, h } = entity.hurtBox;
+    const hb = new Rect(w, h, { fill: "rgba(0, 0, 255, .5)" });
+    hb.pos.x = x;
+    hb.pos.y = y;
+    entity.children.push(hb);
+  }
   return entity;
 }
 
@@ -28,6 +35,17 @@ function bounds(entity) {
     y: hit.y + pos.y,
     w: hit.w - 1,
     h: hit.h - 1
+  };
+}
+
+function hurtBox(entity) {
+  const { w, h, pos, hurtBox } = entity;
+  const hurt = hurtBox || { x: 0, y: 0, w, h };
+  return {
+    x: hurt.x + pos.x,
+    y: hurt.y + pos.y,
+    w: hurt.w - 1,
+    h: hurt.h - 1
   };
 }
 
@@ -69,6 +87,17 @@ function hits(entity, container, hitCallback) {
   });
 }
 
+function hurtToHit(entityHurt, entityHit) {
+  const a = hurtBox(entityHurt);
+  const b = bounds(entityHit);
+  return (
+    a.x + a.w >= b.x &&
+    a.x <= b.x + b.w &&
+    a.y + a.h >= b.y &&
+    a.y <= b.y + b.h
+  );
+}
+
 export default {
   addDebug,
   angle,
@@ -76,5 +105,6 @@ export default {
   center,
   distance,
   hit,
-  hits
+  hits,
+  hurtToHit
 };

@@ -15,6 +15,7 @@ class Baddie extends TileSprite {
         this.speed = speed
         this.agro = false
         this.hitBox = {x: 8, y: 8, w: 16, h: 16}
+        
         const{anims} = this
 
         anims.add("idle_reg", [0, 1, 2, 3].map(x => ({x, y:0})), .1)

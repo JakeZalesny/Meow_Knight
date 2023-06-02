@@ -38,6 +38,7 @@ class Player extends TileSprite {
         this.controls = controls
         this.mousecontrols = mousecontrols
         this.hitBox = {x: 1, y: 18, w: 13, h: 16}
+        this.hurtBox = {x: 1, y: 18, w: 160, h: 16}
         this.attacking = false;
         this.dodging = false;
         this.speed = 1
@@ -120,7 +121,6 @@ class Player extends TileSprite {
             this.speed = 1.5
             this.texture = animations["dodge"];
             this.anims.play("dodge");
-            console.log(this.frame.y)
             if(this.frame.y == 7) {
                 this.dodging = false;
                 this.frame.y = 0;

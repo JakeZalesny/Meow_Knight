@@ -55,9 +55,8 @@ class Player extends TileSprite {
         super.update(dt)
         const {x, y, action} = this.controls;
         const {up, down, move} = this.mousecontrols;
+
         // Attacks
-
-
         if(this.mousecontrols.pressed && !this.dodging) {
             this.attacking = true; 
         }
@@ -67,13 +66,22 @@ class Player extends TileSprite {
             this.dodging = true; 
         }
 
-        if(y && ! this.dodging && !this.attacking){
-            this.texture = animations["run"];
-            this.anims.play("run");
+
+        // Normal movement handling
+
+        //Movement for y and diagonal
+        if(y && x && ! this.dodging && !this.attacking){
             this.pos.y += y * dt * 150
         }
 
-        // Normal movement handling
+        // Only running up and down animation
+        if(y && !x && ! this.dodging && !this.attacking){
+            this.texture = animations["idle"];
+            this.anims.play("idle");
+            this.pos.y += y * dt * 150
+        }
+
+        //running right animation
         if(x == 1 && !this.dodging && !this.attacking) {
             this.texture = animations["run"];
             this.anims.play("run");
@@ -83,6 +91,7 @@ class Player extends TileSprite {
             this.pos.x += x * dt * 150
         }
 
+        //Running left animation
         else if(x == -1 && !this.dodging && !this.attacking) {
             this.texture = animations["run"];
             this.scale.x = -2;  
@@ -90,12 +99,11 @@ class Player extends TileSprite {
             this.anims.play("run");  
             this.pos.x += x * dt * 150
         }
+        //Idle animation
         if(!x && !y && !this.dodging && !this.attacking) {
             this.texture = animations["idle"];
             this.anims.play("idle"); 
             this.rotation = 0; 
-            this.scale.x = 2; 
-            this.anchor.x = 0;
         }
 
 

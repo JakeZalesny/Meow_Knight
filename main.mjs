@@ -23,8 +23,8 @@ baddie.pos = {x: w/2 + 200, y: h/2 + 100}
 camera.add(player);
 camera.add(baddie)
 
-entity.addDebug(baddie)
-entity.addDebug(player)
+// entity.addDebug(baddie)
+// entity.addDebug(player)
 
 
 game.run(() => {

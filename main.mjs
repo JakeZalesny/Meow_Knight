@@ -14,19 +14,19 @@ const controls = new KeyControls();
 const mousecontrols = new MouseControls(); 
 
 const player = new Player(controls, mousecontrols);
-player.pos = {x: w / 2, y: h / 2};
+player.pos = {x: w / 4 + 140, y: h / 4};
 
 const camera = scene.add(new Camera(player, {w: w, h: h}, {w: level.w, h: level.h}))
 camera.add(level)
 
 const baddie = new Baddie(player, 1, goblin_animations, goblin_animations["idle"]);
-baddie.pos = {x: w/2 + 200, y: h/2 + 100}
+baddie.pos = {x: w/4 , y: h/4}
 
 camera.add(player);
 camera.add(baddie)
 
 entity.addDebug(baddie)
-// entity.addDebug(player)
+entity.addDebug(player)
 
 
 game.run(() => {

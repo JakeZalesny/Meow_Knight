@@ -26,12 +26,12 @@ class Baddie extends TileSprite {
     update(dt, t) {
         super.update(dt, t)
 
-        if(entity.distance(this.target, this) < 200){
-            this.agro = true
-        }
-        else if(entity.distance(this.target, this) > 300){
-            this.agro = false
-        }
+        // if(entity.distance(this.target, this) < 200){
+        //     this.agro = true
+        // }
+        // else if(entity.distance(this.target, this) > 300){
+        //     this.agro = false
+        // }
 
         if(this.agro == true){
 

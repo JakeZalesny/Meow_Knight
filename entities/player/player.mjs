@@ -38,7 +38,7 @@ class Player extends TileSprite {
         this.controls = controls
         this.mousecontrols = mousecontrols
         this.hitBox = {x: 1, y: 18, w: 13, h: 16}
-        this.hurtBox = {x: 1, y: 18, w: 160, h: 16}
+        this.hurtBox = {x: 1, y: 18, w: 42, h: 16}
         this.attacking = false;
         this.dodging = false;
         this.speed = 1
@@ -95,10 +95,11 @@ class Player extends TileSprite {
         //Running left animation
         else if(x == -1 && !this.dodging && !this.attacking) {
             this.texture = animations["run"];
-            this.scale.x = -2;  
+            this.scale.x = -2;
             this.anchor.x = 32;
             this.anims.play("run");  
             this.pos.x += x * dt * 150
+
         }
         //Idle animation
         if(!x && !y && !this.dodging && !this.attacking) {

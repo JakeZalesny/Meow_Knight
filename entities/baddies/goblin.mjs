@@ -25,7 +25,7 @@ class Goblin extends Baddie {
         this.target = target
         this.speed = 1
         this.agro = false
-        this.hitBox = {x: 8, y: 8, w: 16, h: 16}
+        this.hitBox = {x: 0, y: 28, w: 34, h: 36}
         const{anims} = this
 
         anims.add("idle", [0, 1, 2].map(y => ({x:0, y})), 0.1)

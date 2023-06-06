@@ -1,15 +1,18 @@
 import pop from "./pop/index.js";
 const { Game, KeyControls, Camera, entity, math } = pop;
+
+//move into Overworld1Screen
 import Player from "./entities/player/player.mjs";
-import Level from "./resources/Levels/testLevel.mjs";
+// import Level from "./resources/Levels/testLevel.mjs";
 import MouseControls from "./pop/controls/MouseControls.js";
 import Baddie from "./entities/baddies/baddie.mjs";
 import constants from "./constants/constants.mjs";
 const {goblin_animations} = constants; 
+import TiledLevel from "./pop/TiledLevel.js";
 
 const game = new Game(window.innerWidth, window.innerHeight - 4);
 const {scene, w, h} = game; 
-const level = new Level(w * 4, h * 4) //This is where I must put my level.
+// const level = new Level(6 * 4, h * 4) //This is where I must put my level.
 const controls = new KeyControls(); 
 const mousecontrols = new MouseControls(); 
 

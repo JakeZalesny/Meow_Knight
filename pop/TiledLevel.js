@@ -1,6 +1,6 @@
-import TileMap from "./TileMap.js";
-import tiledParser from "../../pop/utils/tiledParser.js";
-import Texture from "./Texture.js";
+// import TileMap from "./TileMap.js";
+// import tiledParser from "../../pop/utils/tiledParser.js";
+// import Texture from "./Texture.js";
 
 import pop from "../pop/index.js";
 const { TileMap, Texture, tiledParser } = pop;
@@ -23,7 +23,7 @@ class TiledLevel extends TileMap {
 
   getSpawnLocations(data) {
     return  {
-      player: data.getObjectByName("Hero", true),
+    //   player: data.getObjectByName("PlayerSpawn", true),
     //   baddies: [
     //     ...data.getObjectsByType("Ghost"), // TODO use these for baddies
     //     ...data.getObjectsByType("Spikes"),

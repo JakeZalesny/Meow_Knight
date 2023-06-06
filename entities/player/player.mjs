@@ -40,6 +40,7 @@ class Player extends TileSprite {
         this.hitBox = {x: 1, y: 18, w: 13, h: 16}
         this.hurtBox = {x: 1, y: 18, w: 42, h: 16}
         this.attacking = false;
+        this.doDamage = false
         this.dodging = false;
         this.speed = 1
         const{anims} = this
@@ -108,16 +109,25 @@ class Player extends TileSprite {
             this.rotation = 0; 
         }
 
-
+        // Attacking animation
         if(this.attacking) {
+            //switch textures
             this.texture = animations["attack_1"];
             this.anims.play("attack_1");
+
+            // when to do damage
+            if(this.frame.y >= 3 &&  this.frame.y <= 7){
+                this.doDamage = true
+            } else this.doDamage = false
+
+            // when to stop animation
             if(this.frame.y == 9) {
                 this.attacking = false;
                 this.frame.y = 0;
             }
         }
 
+        // dodging animation
         if(this.dodging) {
             this.speed = 1.5
             this.texture = animations["dodge"];

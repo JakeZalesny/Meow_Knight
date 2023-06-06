@@ -9,7 +9,7 @@ const {goblin_animations} = constants;
 
 const game = new Game(window.innerWidth, window.innerHeight - 4);
 const {scene, w, h} = game; 
-const level = new Level(w * 4, h * 4)
+const level = new Level(w * 4, h * 4) //This is where I must put my level.
 const controls = new KeyControls(); 
 const mousecontrols = new MouseControls(); 
 

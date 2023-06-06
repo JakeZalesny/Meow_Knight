@@ -2,7 +2,7 @@ import TileMap from "../../pop/TileMap.js";
 // import tiledParser from "../../pop/utils/tiledParser.js";
 import Assets from "../../pop/Assets.js";
 
-class OverworldA extends TileMap {
+class OverworldLevel extends TileMap {
     constructor(json) {
         const { tileW, tileH, mapW, mapH, tiles } = tiledParser(json);
         super(tiles, mapW, mapH, tileH, tileW, texture);
@@ -28,4 +28,4 @@ class OverworldA extends TileMap {
 }
 
 
-export default OverworldA;
+export default OverworldLevel;

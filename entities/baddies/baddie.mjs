@@ -12,6 +12,7 @@ class Baddie extends TileSprite {
         this.target = target
         this.speed = 1
         this.agro = false
+        this.agroRange = 200
         this.hitBox = {x: 8, y: 8, w: 16, h: 16}
         const{anims} = this
 
@@ -20,10 +21,10 @@ class Baddie extends TileSprite {
     update(dt, t) {
         super.update(dt, t)
 
-        if(entity.distance(this.target, this) < 200){
+        if(entity.distance(this.target, this) < this.agroRange){
             this.agro = true
         }
-        else if(entity.distance(this.target, this) > 300){
+        else if(entity.distance(this.target, this) > this.agroRange + 100){
             this.agro = false
         }
 

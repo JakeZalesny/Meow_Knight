@@ -4,8 +4,7 @@ import Player from "./entities/player/player.mjs";
 import Level from "./resources/Levels/testLevel.mjs";
 import MouseControls from "./pop/controls/MouseControls.js";
 import Baddie from "./entities/baddies/baddie.mjs";
-import constants from "./constants/constants.mjs";
-const {goblin_animations} = constants; 
+import Goblin from "./entities/baddies/goblin.mjs";
 
 const game = new Game(window.innerWidth, window.innerHeight - 4);
 const {scene, w, h} = game; 
@@ -19,7 +18,7 @@ player.pos = {x: w / 4 + 140, y: h / 4};
 const camera = scene.add(new Camera(player, {w: w, h: h}, {w: level.w, h: level.h}))
 camera.add(level)
 
-const baddie = new Baddie(player, 1, goblin_animations, goblin_animations["idle"]);
+const baddie = new Goblin(player)
 baddie.pos = {x: w/4 , y: h/4}
 
 camera.add(player);

@@ -19,7 +19,7 @@ class Goblin extends Baddie {
         super(target, 64, 64, goblin_animations["idle"]);
         this.pos = {x:0, y: 0};
         this.anchor = { x: 0, y: 0 };
-        this.scale = { x: 2, y: 2 };
+        this.scale = { x: 1.5, y: 1.5 };
         this.pivot = { x: 0, y: 0 };
         this.rotation = 0;
         this.target = target

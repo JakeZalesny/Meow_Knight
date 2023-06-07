@@ -25,6 +25,7 @@ class Goblin extends Baddie {
         this.target = target
         this.speed = 1
         this.agro = false
+        this.agroRange = 200
         this.hitBox = {x: 0, y: 28, w: 34, h: 36}
         const{anims} = this
 
@@ -35,32 +36,7 @@ class Goblin extends Baddie {
 
     update(dt, t) {
         super.update(dt, t)
-
-        if(entity.distance(this.target, this) < 200){
-            this.agro = true
-        }
-        else if(entity.distance(this.target, this) > 300){
-            this.agro = false
-        }
-
-        if(this.agro == true){
-
-            
-            if(this.pos.x < this.target.pos.x - this.target.hitBox.w * 3.3){
-            this.pos.x +=  dt * 60 * this.speed
-        }
-            if(this.pos.x > this.target.pos.x + this.target.hitBox.w){
-            this.pos.x -= dt * 60 * this.speed
-        }
-            if(this.pos.y < this.target.pos.y + this.target.hitBox.h * 1.4){
-            this.pos.y += dt * 60 * this.speed
-        }
-            if(this.pos.y > this.target.pos.y + this.target.hitBox.h * 1.4){
-            this.pos.y -= dt * 60 * this.speed
-        }
-    }
-        
-        
+         
         }
 }
 

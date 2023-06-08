@@ -8,6 +8,8 @@ function tiledParser(json) {
     tilesets
   } = json;
 
+//   console.log(layers);
+
   const getLayer = name => {
     const layer = layers.find(l => l.name === name);
     if (!layer) {

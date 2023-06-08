@@ -1,16 +1,16 @@
 import pop from "../../pop/index.js";
 const {
-  Assets,
-  Camera,
-  Container,
-  entity,
-  OneUp,
-  State,
-  Text,
-  Texture,
-  TileSprite,
-  Timer,
-  ParticleEmitter
+    Assets,
+    Camera,
+    Container,
+    entity,
+    OneUp,
+    State,
+    Text,
+    Texture,
+    TileSprite,
+    Timer,
+    ParticleEmitter
 } = pop;
 import TiledLevel from "../../pop/TiledLevel.js";
 // import Player from "../entities/Player.js";
@@ -22,81 +22,85 @@ import TiledLevel from "../../pop/TiledLevel.js";
 // import Totem from "../entities/Totem.js";
 
 class Overworld1Screen extends Container {
-    constructor(game, controls) {
-      super();
-      this.game = game;
-      this.controls = controls;
-    //   this.gameState = gameState; //Removed gamestate param as well (check all lower stuff)
-    //   this.screens = screens; //Removed screens parameter (check all lower stuff)
-  
-      this.camera = this.add(new Camera(null, { w: game.w, h: game.h }));
-  
-      this.addAfter = [];
-  
-      // Either load from url or memory
-      const levelUrl = `resources/Levels/Overworld1.tmj`; //if more levels, implement different
-    //   const serialized = gameState.data[gameState.level]; //No serialization
-    //   const level = serialized
-    //     ? Promise.resolve(serialized)
-    //     : Assets.json(levelUrl);
+    constructor(game, controls, gameState) {
+        super();
+        this.game = game;
+        this.controls = controls;
+        this.gameState = gameState; //Removed gamestate param as well (check all lower stuff)
+        //   this.screens = screens; //Removed screens parameter (check all lower stuff)
 
-      const level = Assets.json(levelUrl)
-      level.then(json => this.setupLevel(json, level)).then(() => { //expecting one of these to be an array and t's not
-        // Level is loaded
-        this.loaded = true;
-        // if (gameState.spawn) {
-        //   this.player.pos.copy(this.map.mapToPixelPos(gameState.spawn));
-        // }
-      });
+        this.camera = this.add(new Camera(null, { w: game.w, h: game.h }));
+
+        this.addAfter = [];
+
+        // Either load from url or memory
+        const levelUrl = `resources/Levels/Overworld1.tmj`; //if more levels, implement different
+        //   const levelUrl = `resources/Levels/Overworld${gameState.level}.tmj`; //if more levels, implement different
+        //   const serialized = gameState.data[gameState.level]; //No serialization
+        //   const level = serialized
+        //     ? Promise.resolve(serialized)
+        //     : Assets.json(levelUrl);
+
+        const level = Assets.json(levelUrl);
+        //   console.log(level);
+        level.then(json => this.setupLevel(json, level)).then(() => { //expecting one of these to be an array and t's not
+            // Level is loaded
+            this.loaded = true;
+            // if (gameState.spawn) {
+            //   this.player.pos.copy(this.map.mapToPixelPos(gameState.spawn));
+            // }
+        });
     }
-  
+
     setupLevel(json, parsed) {
-      const { camera, controls } = this; //removed gamestate param
-  
-      const map = new TiledLevel(json, parsed);
-    //   const player = new Player(controls, map, gameState.hp); //TODO this is the player
-    //   player.pos.copy(map.spawns.player);
-  
-      camera.worldSize = { w: map.w, h: map.h };
-    //   camera.setSubject(player);
-  
-      // Add the layers in the correct Z order
-      this.map = camera.add(map);
-    //   this.triggers = camera.add(new Container());
-    //   this.pickups = camera.add(new Container());
-    //   this.player = camera.add(player);
-    //   this.baddies = camera.add(new Container());
-    //   this.bullets = camera.add(new Container());
-    //   this.fx = camera.add(new Container());
-  
-      // Add level pickups
+        // console.log(json);
+        // console.log(parsed);
+        const { camera, controls } = this; //removed gamestate param
 
-  
-      // Add level bad guys
-    //   map.spawns.baddies.forEach(data => {
-    //     const { type, x, y, properties = {} } = data;
-    //     const b = this.baddies.add(this.makeBaddie(type));
-    //     if (properties.speed) {
-    //       b.vel.x = properties.speed;
-    //     }
-    //     b.pos.set(x, y);
-    //   });
-  
-      // Add level doors
-    //   map.spawns.doors.forEach(door => {
-    //     const d = this.triggers.add(this.makeDoor(door));
-    //     d.pos.copy(door);
-    //   });
-  
-    //   const p = new TileSprite(texture, 48, 48);
-    //   p.scale.x = 0.4;
-    //   p.scale.y = 0.4;
-    //   p.frame.x = 6;
-    //   p.frame.y = 2;
-  
-    //   this.pe = this.fx.add(new ParticleEmitter(25, p));
+        const map = new TiledLevel(json);
+        //   const player = new Player(controls, map, gameState.hp); //TODO this is the player
+        //   player.pos.copy(map.spawns.player);
+
+        camera.worldSize = { w: map.w, h: map.h };
+        //   camera.setSubject(player);
+
+        // Add the layers in the correct Z order
+        this.map = camera.add(map);
+        //   this.triggers = camera.add(new Container());
+        //   this.pickups = camera.add(new Container());
+        //   this.player = camera.add(player);
+        //   this.baddies = camera.add(new Container());
+        //   this.bullets = camera.add(new Container());
+        //   this.fx = camera.add(new Container());
+
+        // Add level pickups
+
+
+        // Add level bad guys
+        //   map.spawns.baddies.forEach(data => {
+        //     const { type, x, y, properties = {} } = data;
+        //     const b = this.baddies.add(this.makeBaddie(type));
+        //     if (properties.speed) {
+        //       b.vel.x = properties.speed;
+        //     }
+        //     b.pos.set(x, y);
+        //   });
+
+        // Add level doors
+        //   map.spawns.doors.forEach(door => {
+        //     const d = this.triggers.add(this.makeDoor(door));
+        //     d.pos.copy(door);
+        //   });
+
+        //   const p = new TileSprite(texture, 48, 48);
+        //   p.scale.x = 0.4;
+        //   p.scale.y = 0.4;
+        //   p.frame.x = 6;
+        //   p.frame.y = 2;
+
+        //   this.pe = this.fx.add(new ParticleEmitter(25, p));
     }
-  
+
     // makeBaddie(type) {
     //   const { baddies, player, map } = this;
     //   let e;
@@ -121,10 +125,10 @@ class Overworld1Screen extends Container {
     //   }
     //   return e;
     // }
-  
+
     // makeDoor(door) {
     //   const { gameState, map, screens, player } = this;
-  
+
     //   const { toLevel, spawnX, spawnY } = door.properties;
     //   const t = new Door(door.properties, () => {
     //     gameState.doors[toLevel] = true;
@@ -135,17 +139,17 @@ class Overworld1Screen extends Container {
     //       y: spawnY
     //     });
     //   });
-  
+
     //   // Set door tile
     //   const doorOpen = gameState.doors[toLevel];
     //   const tile = map.tileAtPixelPos(door);
     //   tile.frame.walkable = doorOpen;
     //   tile.frame.x = doorOpen ? 1 : 0;
     //   tile.frame.y = 4;
-  
+
     //   return t;
     // }
-  
+
     // openDoors() {
     //   const { map, gameState } = this;
     //   map.spawns.doors.forEach(door => {
@@ -156,14 +160,14 @@ class Overworld1Screen extends Container {
     //     frame.walkable = true;
     //   });
     // }
-  
+
     // playerWasHit(baddie) {
     //   const { player, pe, game, camera } = this;
-  
+
     //   if (baddie.type === "Spikes" && !baddie.deadly) {
     //     return;
     //   }
-  
+
     //   if (player.hitBy(baddie)) {
     //     pe.play(entity.center(player));
     //     //this.setHearts();
@@ -171,7 +175,7 @@ class Overworld1Screen extends Container {
     //       this.state.set("GAMEOVER");
     //     }
     //     camera.shake(9);
-  
+
     //     // Hit lag.
     //     this.add(
     //       new Timer(
@@ -181,80 +185,80 @@ class Overworld1Screen extends Container {
     //       )
     //     );
     //   }
-  
+
     //   switch (baddie.type) {
     //     case "Bullet":
     //       baddie.dead = true;
     //       break;
     //   }
     // }
-  
+
     update(dt, t) {
-      const { controls, player } = this; //removed state
-      const { keys } = controls;
-  
-    //   switch (state.get()) {
-    //     case "LOADING":
-    //       this.scoreText.text = "...";
-    //       if (this.loaded) {
-    //         state.set("READY");
-    //       }
-    //       break;
-  
-    //     case "READY":
-    //       if (state.first) {
-    //         this.game.speed = 1;
-    //         this.scoreText.text = "GET READY";
-    //       }
-    //       if (state.time > 2) {
-    //         this.scoreText.text = "0";
-    //         state.set("PLAYING");
-    //       }
-    //       break;
-  
+        const { controls, player } = this; //removed state
+        const { keys } = controls;
+
+        //   switch (state.get()) {
+        //     case "LOADING":
+        //       this.scoreText.text = "...";
+        //       if (this.loaded) {
+        //         state.set("READY");
+        //       }
+        //       break;
+
+        //     case "READY":
+        //       if (state.first) {
+        //         this.game.speed = 1;
+        //         this.scoreText.text = "GET READY";
+        //       }
+        //       if (state.time > 2) {
+        //         this.scoreText.text = "0";
+        //         state.set("PLAYING");
+        //       }
+        //       break;
+
         // case "PLAYING":
-          super.update(dt, t);
-          this.updatePlaying(dt, t);
-    //       break;
-  
-    //     case "GAMEOVER":
-    //       if (state.first) {
-    //         player.gameOver = true;
-    //       }
-    //       super.update(dt, t);
-  
-    //       // If player dead, wait for space bar
-    //       if (keys.action) {
-    //         this.screens.onReset();
-    //       }
-    //       break;
-    //   }
-  
-      // TMP hack! Will explain soon...
-    //   if (this.addAfter.length) {
-    //     this.addAfter.forEach(b => this.baddies.add(b));
-    //     this.addAfter = [];
-    //   }
-  
-    //   state.update(dt); //No state
+        super.update(dt, t);
+        this.updatePlaying(dt, t);
+        //       break;
+
+        //     case "GAMEOVER":
+        //       if (state.first) {
+        //         player.gameOver = true;
+        //       }
+        //       super.update(dt, t);
+
+        //       // If player dead, wait for space bar
+        //       if (keys.action) {
+        //         this.screens.onReset();
+        //       }
+        //       break;
+        //   }
+
+        // TMP hack! Will explain soon...
+        //   if (this.addAfter.length) {
+        //     this.addAfter.forEach(b => this.baddies.add(b));
+        //     this.addAfter = [];
+        //   }
+
+        //   state.update(dt); //No state
     }
-  
+
     updatePlaying() { //unnecessary for now
-    //   const { baddies, player } = this; //removed triggers
-  
-    //   baddies.map(b => {
-    //     // Baddie hit the player
-    //     if (entity.hit(player, b)) {
-    //       this.playerWasHit(b);
-    //     }
-    //   });
-  
-    //   // Touched a door
-    //   entity.hits(player, triggers, trigger => trigger.trigger());
-  
-    //   // Collect pickup!
-    //   entity.hits(player, pickups, pickup => this.gotPickup(pickup));
+        //   const { baddies, player } = this; //removed triggers
+
+        //   baddies.map(b => {
+        //     // Baddie hit the player
+        //     if (entity.hit(player, b)) {
+        //       this.playerWasHit(b);
+        //     }
+        //   });
+
+        //   // Touched a door
+        //   entity.hits(player, triggers, trigger => trigger.trigger());
+
+        //   // Collect pickup!
+        //   entity.hits(player, pickups, pickup => this.gotPickup(pickup));
     }
-  }
-  
-  export default Overworld1Screen;
+}
+
+export default Overworld1Screen;

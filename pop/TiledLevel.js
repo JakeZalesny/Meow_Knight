@@ -10,13 +10,19 @@ const texture = new Texture("./resources/Forest BETA V2/Forest Props.png"); //TO
 
 
 class TiledLevel extends TileMap {
-  constructor(data, parsed) {
-    if (!parsed) {
-      data = tiledParser(data);
-    }
+  constructor(data) {
+    // if (!parsed) {
+    //   data = tiledParser(data);
+    // }
 
-    const { tileW, tileH, mapW, mapH, tiles } = data;
-    super(tiles, mapW, mapH, tileH, tileW, texture);
+    const { tileW, tileH, mapW, mapH, tiles } = tiledParser(data);
+    // console.log(tiles);
+    // console.log(mapW);
+    // console.log(mapH);
+    // console.log(tileH);
+    // console.log(tileW);
+    // console.log(texture);
+    super(tiles, mapW, mapH, tileH, tileW, texture); //I'm getting an idea: Tilemap can pull from multiple textures? And pull Texture from embedded sheets.
 
     // this.spawns = parsed ? data.spawns : this.getSpawnLocations(data); //TODO use this for baddie spawns
   }

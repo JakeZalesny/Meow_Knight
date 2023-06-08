@@ -3,7 +3,7 @@ import Baddie from "./baddie.mjs";
 const { TileSprite, Texture, math, entity } = pop;
 
 const goblin_idle = new Texture("./resources/Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Goblin/Goblin_Idle_64.png");
-const goblin_run = new Texture("./resources/Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Goblin/Run.png");
+const goblin_run = new Texture("./resources/Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Goblin/Goblin_Run_64.png");
 const goblin_attack = new Texture("./resources/Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Goblin/Attack.png");
 const goblin_hit = new Texture("./resources/Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Goblin/Take-Hit.png")
 
@@ -23,20 +23,24 @@ class Goblin extends Baddie {
         this.pivot = { x: 0, y: 0 };
         this.rotation = 0;
         this.target = target
-        this.speed = 1
+        this.speed = 2
         this.agro = false
         this.agroRange = 200
         this.hitBox = {x: 0, y: 28, w: 34, h: 36}
         const{anims} = this
 
         anims.add("idle", [0, 1, 2].map(y => ({x:0, y})), 0.1)
+        anims.add("run", [0, 1, 2, 3, 4, 5, 6, 7].map(y => ({x:0, y})), 0.1)
         anims.play("idle")
 
     }
 
     update(dt, t) {
         super.update(dt, t)
-         
+         if(this.agro == true) {
+            this.texture = goblin_animations["run"]
+            this.anims.play("run")
+         }
         }
 }
 

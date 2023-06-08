@@ -29,18 +29,21 @@ class Baddie extends TileSprite {
         }
 
         if(this.agro == true){
-
-            
+            // Attack Right
             if(this.pos.x < this.target.pos.x - this.target.hitBox.w * 3.3){
             this.pos.x +=  dt * 60 * this.speed
         }
+            // Attack Left
             if(this.pos.x > this.target.pos.x + this.target.hitBox.w){
             this.pos.x -= dt * 60 * this.speed
         }
-            if(this.pos.y < this.target.pos.y + this.target.hitBox.h * 1.4){
+            //Attack Down
+            if(this.pos.y < this.target.pos.y - this.hitBox.h/2){
             this.pos.y += dt * 60 * this.speed
         }
-            if(this.pos.y > this.target.pos.y + this.target.hitBox.h * 1.4){
+
+            // Attack Up
+            if(this.pos.y > this.target.pos.y - this.hitBox.h/2){
             this.pos.y -= dt * 60 * this.speed
         }
     }

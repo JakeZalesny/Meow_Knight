@@ -29,7 +29,7 @@ entity.addDebug(player)
 
 
 game.run(() => {
-    if(entity.hit(player, baddie) && baddie.dead == false) player.dead = true
+    if(entity.hit(player, baddie)) player.dead = true
     if (player.doDamage) {
         if(entity.hurtToHit(player, baddie)) baddie.dead = true
     }

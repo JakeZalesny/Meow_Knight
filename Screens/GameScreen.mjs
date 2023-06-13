@@ -17,7 +17,7 @@ class GameScreen extends Container {
         const camera = this.add(new Camera(player, {w:game.w, h:game.h}, {w:level.w, h:level.h}))
 
         const goblin = new Goblin(player)
-        goblin.pos = {x: player.pos.x, h: player.pos.y}
+        goblin.pos = {x: player.pos.x, y: player.pos.y}
 
         camera.add(level)
         camera.add(player)
@@ -30,6 +30,7 @@ class GameScreen extends Container {
         entity.addDebug(goblin)
 
         console.log(this.goblin)
+        console.log(this.goblin.anims)
     }
     
     update(dt,t) {

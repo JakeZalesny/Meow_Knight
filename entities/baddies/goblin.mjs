@@ -51,6 +51,7 @@ class Goblin extends Baddie {
             this.anims.play("idle")
         }
 
+
     }
 }
 

@@ -1,37 +1,35 @@
 import pop from "./pop/index.js";
-const { Game, KeyControls, Camera, entity, math } = pop;
-import Player from "./entities/player/player.mjs";
-import Level from "./resources/Levels/testLevel.mjs";
-import MouseControls from "./pop/controls/MouseControls.js";
-import Baddie from "./entities/baddies/baddie.mjs";
-import Goblin from "./entities/baddies/goblin.mjs";
+import GameScreen from "./Screens/GameScreen.mjs"
+const { Game, KeyControls, MouseControls } = pop;
 
 const game = new Game(window.innerWidth, window.innerHeight - 4);
-const {scene, w, h} = game; 
-const level = new Level(w * 4, h * 4)
+// const level = new Level(w * 4, h * 4)
 const controls = new KeyControls(); 
-const mousecontrols = new MouseControls(); 
+const mousecontrols = new MouseControls();
 
-const player = new Player(controls, mousecontrols);
-player.pos = {x: w / 4 + 140, y: h / 4};
+const screen = new GameScreen(controls, game, mousecontrols)
 
-const camera = scene.add(new Camera(player, {w: w, h: h}, {w: level.w, h: level.h}))
-camera.add(level)
+game.scene.add(screen)
+// const player = new Player(controls, mousecontrols);
+// player.pos = {x: w / 4 + 140, y: h / 4};
 
-const baddie = new Goblin(player)
-baddie.pos = {x: w/4 , y: h/4}
+// const camera = scene.add(new Camera(player, {w: w, h: h}, {w: level.w, h: level.h}))
+// camera.add(level)
 
-camera.add(player);
-camera.add(baddie)
+// const baddie = new Goblin(player)
+// baddie.pos = {x: w/4 , y: h/4}
 
-entity.addDebug(baddie)
-entity.addDebug(player)
+// camera.add(player);
+// camera.add(baddie)
+
+// // entity.addDebug(baddie)
+// // entity.addDebug(player)
 
 
 game.run(() => {
-    if(entity.hit(player, baddie)) player.dead = true
-    if (player.doDamage) {
-        if(entity.hurtToHit(player, baddie)) baddie.dead = true
-    }
+    // if(entity.hit(player, baddie)) player.dead = true
+    // if (player.doDamage) {
+    //     if(entity.hurtToHit(player, baddie)) baddie.dead = true
+    // }
 
 });

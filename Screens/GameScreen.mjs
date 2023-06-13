@@ -17,7 +17,7 @@ class GameScreen extends Container {
         const camera = this.add(new Camera(player, {w:game.w, h:game.h}, {w:level.w, h:level.h}))
 
         const goblin = new Goblin(player)
-        goblin.pos = {x: player.pos.x, y: player.pos.y}
+        goblin.pos = {x: game.w/2 + 400, y: game.h/2}
 
         camera.add(level)
         camera.add(player)
@@ -36,10 +36,10 @@ class GameScreen extends Container {
     update(dt,t) {
         super.update(dt, t)
 
-        // if(entity.hit(this.player, this.goblin)) this.player.dead = true
-        // if(this.player.doDamage) {
-        //     if(entity.hurtToHit(this.player, this.goblin)) this.goblin.dead = true
-        // }
+        if(entity.hit(this.player, this.goblin)) this.player.dead = true
+        if(this.player.doDamage) {
+            if(entity.hurtToHit(this.player, this.goblin)) this.goblin.dead = true
+        }
 
     }
 }

@@ -2,10 +2,10 @@ import pop from "../../pop/index.js";
 import Baddie from "./baddie.mjs";
 const { TileSprite, Texture, math, entity } = pop;
 
-const goblin_idle = new Texture("./resources/Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Goblin/Goblin_Idle_64.png");
-const goblin_run = new Texture("./resources/Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Goblin/Goblin_Run_64.png");
-const goblin_attack = new Texture("./resources/Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Goblin/Attack.png");
-const goblin_hit = new Texture("./resources/Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Goblin/Take-Hit.png")
+const goblin_idle = new Texture("./resources/Monsters_Creatures_Fantasy/Goblin/Goblin_Idle_64.png");
+const goblin_run = new Texture("./resources/Monsters_Creatures_Fantasy/Goblin/Goblin_Run_64.png");
+const goblin_attack = new Texture("./resources/Monsters_Creatures_Fantasy/Goblin/Attack.png");
+const goblin_hit = new Texture("./resources/Monsters_Creatures_Fantasy/Goblin/Take-Hit.png")
 
 const goblin_animations = {
     "idle":goblin_idle,

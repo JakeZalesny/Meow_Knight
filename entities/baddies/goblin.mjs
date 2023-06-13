@@ -40,8 +40,18 @@ class Goblin extends Baddie {
          if(this.agro == true) {
             this.texture = goblin_animations["run"]
             this.anims.play("run")
+            this.scale.x = 1.5
          }
+         if(this.pos.x > this.target.pos.x + this.target.hitBox.w){
+            this.scale.x = -1.5
         }
+
+        else if(!this.agro){
+            this.texture = goblin_animations["idle"]
+            this.anims.play("idle")
+        }
+
+    }
 }
 
 export default Goblin; 

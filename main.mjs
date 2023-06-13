@@ -9,7 +9,7 @@ const mousecontrols = new MouseControls();
 
 const screen = new GameScreen(controls, game, mousecontrols)
 
-game.scene.add(screen)
+game.scene.add(screen)  
 // const player = new Player(controls, mousecontrols);
 // player.pos = {x: w / 4 + 140, y: h / 4};
 

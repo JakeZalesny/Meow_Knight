@@ -42,7 +42,7 @@ class TileMap extends Container {
   }
 
   tileAtPixelPos(pos) {
-    return this.tileAtMapPos(this.pixelToMapPos(pos));
+    return this.tileAtMapPos(this.pixelToMapPos(pos)); //TODO something like this would need to change if we extended TiledLevel fro mTileMap?
   }
 
   setFrameAtMapPos(mapPos, frame) {

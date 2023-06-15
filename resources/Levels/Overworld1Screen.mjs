@@ -13,6 +13,7 @@ const {
     ParticleEmitter
 } = pop;
 import TiledLevel from "../../pop/TiledLevel.js";
+import TiledLevelMulti from "../../pop/TiledLevelMulti.js";
 // import Player from "../entities/Player.js";
 // import Pickup from "../entities/Pickup.js";
 // import Bat from "../entities/Bat.js";
@@ -57,15 +58,26 @@ class Overworld1Screen extends Container {
         // console.log(parsed);
         const { camera, controls } = this; //removed gamestate param
 
-        const map = new TiledLevel(json);
+        // const map = new TiledLevel(json);
+        const map = new TiledLevelMulti(json);
+
         //   const player = new Player(controls, map, gameState.hp); //TODO this is the player
         //   player.pos.copy(map.spawns.player);
 
-        camera.worldSize = { w: map.w, h: map.h };
+        camera.worldSize = { w: map.w, h: map.h }; //Thus, need a mapw and maph in the LevelMulti class.
+        console.log(camera.worldSize);
         //   camera.setSubject(player);
 
         // Add the layers in the correct Z order
-        this.map = camera.add(map);
+        this.map = map.mapLayers.map(tileLayer => {camera.add(tileLayer)}) ; //Modifed to be a map over each TileMap.
+        //NOTE: this could possible be incorrect and I should be adding the TiledLevelMulti to the camera.
+        //If that is the case, then... I woud need the correct update methods? Other methods?
+        //For example, this does not handle the EntitiesLayer at all.
+        //Then again, maybe I don't need to because TiledLevel the original doesn't handle it either? It *does* have all the data.
+        
+        //And also, we seem to be hnalding entities outside of the tilemap mostly anyways?
+
+        
         //   this.triggers = camera.add(new Container());
         //   this.pickups = camera.add(new Container());
         //   this.player = camera.add(player);

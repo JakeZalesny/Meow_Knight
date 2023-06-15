@@ -1,4 +1,4 @@
-function tiledParser(json) {
+function tiledParserMulti(json) {
   const {
     tilewidth: tileW,
     tileheight: tileH,
@@ -18,6 +18,11 @@ function tiledParser(json) {
     return layer;
   };
 
+  const getLayersByType = name => {
+    const filtered = layers.filter(l => l.type == name);
+    return filtered;
+  };  
+
   const getTileset = idx => {
     if (!tilesets || !tilesets[idx]) {
       throw new Error(`Tiled error: Missing tileset index ${idx}`);
@@ -26,6 +31,8 @@ function tiledParser(json) {
   };
 
   const levelLayer = getLayer("Level"); //TODO change this to expect Floor, and BG(X). GetTileLayers and then not 'name'
+  const levelLayers = getLayersByType('tilelayer');
+
   const entitiesLayer = getLayer("Entities");       //instead map and 'const layers.find l.type == tileLayer. 
   const entities = entitiesLayer.objects.map(       //Actually, not a find. We want a 'filter' I think.
     ({ x, y, width, height, properties, type, name }) => ({
@@ -56,7 +63,7 @@ function tiledParser(json) {
   };
 
   // Map the Tiled level data to our game format
-  const tileset = getTileset(0);                    //Possible key to multi-tileset amps? Not going to worry over it.
+  const tileset = getTileset(0);                    //Possible key to multi-tileset amps? Not going to worry over it. Would need tilesheets on individual layers.
   const props = tileset.tileproperties; // Extra tile properties: walkable, clouds
   const tilesPerRow = Math.floor(tileset.imagewidth / tileset.tilewidth);
   const tiles = levelLayer.data.map(cell => {                                //TODO this is going to change; will be an array of layers
@@ -67,18 +74,27 @@ function tiledParser(json) {
     });
   });
 
-//   console.log(tiles);
+  const tileLayers = levelLayers.map(layer => layer.data.map(cell => {                                //TODO this is going to change; will be an array of layers
+    const idx = cell - tileset.firstgid; // Get correct Tiled offset            //since levelLayer = getLayer("Level"). levellayers.map( layer-> layer.data.map(cell...))?
+    return Object.assign({}, props && props[idx] || {}, {
+      x: idx % tilesPerRow,
+      y: Math.floor(idx / tilesPerRow)
+    });
+  }));
+
+//   console.log(tileLayers);
 
   return {
     tileW,
     tileH,
     mapW,
     mapH,
-    tiles,
+    // tiles,
+    tileLayers, //Could consider also exporting the entire levelLayers?
 
     getObjectByName,
     getObjectsByType
   };
 }
 
-export default tiledParser;
+export default tiledParserMulti;

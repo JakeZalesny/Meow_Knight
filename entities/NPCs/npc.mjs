@@ -26,4 +26,4 @@ class NPC extends TileSprite {
         }
 }
 
-export default Baddie; 
+export default NPC; 

@@ -41,11 +41,15 @@ class GameScreen extends Container {
 
         this.goblin = goblin
         this.player = player
-        // this.mushroom = mushroom
+        this.flying_eye = flying_eye
+        this.mushroom = mushroom
         this.b_witch = b_witch
         this.camera = camera
 
-        // entity.addDebug(goblin)
+        entity.addDebug(goblin)
+        entity.addDebug(mushroom)
+        entity.addDebug(player)
+        // entity.addDebug(flying_eye)
 
         console.log(this.goblin)
         console.log(this.goblin.anims)
@@ -57,6 +61,8 @@ class GameScreen extends Container {
         if(entity.hit(this.player, this.goblin)) this.player.dead = true
         if(this.player.doDamage) {
             if(entity.hurtToHit(this.player, this.goblin)) this.goblin.dead = true
+            if(entity.hurtToHit(this.player, this.flying_eye)) this.flying_eye.dead = true
+            if(entity.hurtToHit(this.player, this.mushroom)) this.mushroom.dead = true
         }
 
     }

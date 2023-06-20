@@ -38,7 +38,7 @@ class Player extends TileSprite {
         this.controls = controls
         this.mousecontrols = mousecontrols
         this.hitBox = {x: 1, y: 18, w: 13, h: 16}
-        this.hurtBox = {x: 1, y: 18, w: 42, h: 16}
+        this.hurtBox = {x: 1, y: 18, w: 34, h: 16}
         this.attacking = false;
         this.doDamage = false
         this.dodging = false;

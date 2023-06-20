@@ -42,7 +42,7 @@ class Goblin extends Baddie {
         super.update(dt, t)
 
         //This was causing an issue due to the distance set. The left run won't come. May need to raise target range. 
-        if(this.pos.x - this.target.pos.x <= 36 && this.pos.y - this.target.pos.y <= 34) {
+        if(this.pos.x - this.target.pos.x <= (64 * 1.5) && this.pos.y - this.target.pos.y <= (64 * 1.5)) {
             this.attacking = true
         }
 
@@ -73,6 +73,7 @@ class Goblin extends Baddie {
         if(this.attacking) {
             //switch textures
             this.texture = goblin_animations["attack_1"];
+            this.scale.x = -1.5
             this.anims.play("attack_1");
 
             // when to do damage

@@ -143,8 +143,7 @@ class Player extends TileSprite {
 
 
 
-        this.mousecontrols.update(); 
-        
+        this.mousecontrols.update();  
     }
 }
 

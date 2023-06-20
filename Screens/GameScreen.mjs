@@ -5,6 +5,8 @@ import Level from "../resources/Levels/testLevel.mjs";
 import Player from "../entities/player/player.mjs";
 import Goblin from "../entities/baddies/goblin.mjs";
 import BlueWitch from "../entities/NPCs/blue-witch.mjs"
+import Mushroom from "../entities/baddies/mushroom.mjs";
+import FlyingEye from "../entities/baddies/flyingeye.mjs";
 
 class GameScreen extends Container {
     constructor(controls, game, mousecontrols) {
@@ -19,19 +21,28 @@ class GameScreen extends Container {
         //Enemies Initialization
         const goblin = new Goblin(player)
         goblin.pos = {x: game.w/2 + 400, y: game.h/2}
+        
+        const mushroom = new Mushroom(player)
+        mushroom.pos = {x: 500, y: 500}
+
+        const flying_eye = new FlyingEye(player)
+        flying_eye.pos = {x: 900, y: 600}
 
         //NPC initialization
         const b_witch = new BlueWitch(player)
         b_witch.pos = {x: 40, y: 50}
-        console.log(b_witch.texture)
 
         camera.add(level)
         camera.add(b_witch)
         camera.add(player)
         camera.add(goblin)
+        camera.add(mushroom)
+        camera.add(flying_eye)
 
         this.goblin = goblin
         this.player = player
+        // this.mushroom = mushroom
+        this.b_witch = b_witch
         this.camera = camera
 
         // entity.addDebug(goblin)

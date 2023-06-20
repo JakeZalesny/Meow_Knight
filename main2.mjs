@@ -3,7 +3,7 @@ const { Game, KeyControls } = pop;
 // import TitleScreen from "./screens/TitleScreen.js";
 import Overworld1Screen from "./resources/Levels/Overworld1Screen.mjs";
 
-const game = new Game(64 * 16, 64 * 16);
+const game = new Game(64 * 16, 64 * 16); //Next todo is possible to make this (and all other size things) dynamic?
 const controls = {
   keys: new KeyControls()
 };

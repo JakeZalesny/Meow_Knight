@@ -30,7 +30,7 @@ function tiledParserMulti(json) {
     return tilesets[idx];
   };
 
-  const levelLayer = getLayer("Level"); //TODO change this to expect Floor, and BG(X). GetTileLayers and then not 'name'
+//   const levelLayer = getLayer("Level"); //TODO change this to expect Floor, and BG(X). GetTileLayers and then not 'name'
   const levelLayers = getLayersByType('tilelayer');
 
   const entitiesLayer = getLayer("Entities");       //instead map and 'const layers.find l.type == tileLayer. 
@@ -66,13 +66,13 @@ function tiledParserMulti(json) {
   const tileset = getTileset(0);                    //Possible key to multi-tileset amps? Not going to worry over it. Would need tilesheets on individual layers.
   const props = tileset.tileproperties; // Extra tile properties: walkable, clouds
   const tilesPerRow = Math.floor(tileset.imagewidth / tileset.tilewidth);
-  const tiles = levelLayer.data.map(cell => {                                //TODO this is going to change; will be an array of layers
-    const idx = cell - tileset.firstgid; // Get correct Tiled offset            //since levelLayer = getLayer("Level"). levellayers.map( layer-> layer.data.map(cell...))?
-    return Object.assign({}, props && props[idx] || {}, {
-      x: idx % tilesPerRow,
-      y: Math.floor(idx / tilesPerRow)
-    });
-  });
+//   const tiles = levelLayer.data.map(cell => {                                //TODO this is going to change; will be an array of layers
+//     const idx = cell - tileset.firstgid; // Get correct Tiled offset            //since levelLayer = getLayer("Level"). levellayers.map( layer-> layer.data.map(cell...))?
+//     return Object.assign({}, props && props[idx] || {}, {
+//       x: idx % tilesPerRow,
+//       y: Math.floor(idx / tilesPerRow)
+//     });
+//   });
 
   const tileLayers = levelLayers.map(layer => layer.data.map(cell => {                                //TODO this is going to change; will be an array of layers
     const idx = cell - tileset.firstgid; // Get correct Tiled offset            //since levelLayer = getLayer("Level"). levellayers.map( layer-> layer.data.map(cell...))?

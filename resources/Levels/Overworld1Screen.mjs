@@ -35,7 +35,7 @@ class Overworld1Screen extends Container {
         this.addAfter = [];
 
         // Either load from url or memory
-        const levelUrl = `resources/Levels/Overworld1.tmj`; //if more levels, implement different
+        const levelUrl = `resources/Levels/ForestOverworld.tmj`; //if more levels, implement different
         //   const levelUrl = `resources/Levels/Overworld${gameState.level}.tmj`; //if more levels, implement different
         //   const serialized = gameState.data[gameState.level]; //No serialization
         //   const level = serialized

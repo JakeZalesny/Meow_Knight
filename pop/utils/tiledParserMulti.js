@@ -19,7 +19,7 @@ function tiledParserMulti(json) {
   };
 
   const getLayersByType = name => {
-    const filtered = layers.filter(l => l.type == name);
+    const filtered = layers.filter(l => l.type == name); //THIS IS MINE
     return filtered;
   };  
 
@@ -28,6 +28,14 @@ function tiledParserMulti(json) {
       throw new Error(`Tiled error: Missing tileset index ${idx}`);
     }
     return tilesets[idx];
+  };
+
+  const getTilesetByName = name => {
+    const tileset = tilesets.find(t => t.name == name);
+    if (!tilesets) {
+      throw new Error(`Tiled error: Missing tileset index ${idx}`); //THIS IS MINE
+    }
+    return tileset;
   };
 
 //   const levelLayer = getLayer("Level"); //TODO change this to expect Floor, and BG(X). GetTileLayers and then not 'name'
@@ -90,10 +98,13 @@ function tiledParserMulti(json) {
     mapW,
     mapH,
     // tiles,
-    tileLayers, //Could consider also exporting the entire levelLayers?
+    tileLayers, //Could consider also exporting the entire levelLayers? Yes. Need that too. 'levelLayers.' and then change
+    //Or rather, needs the 'tilesets' data so it can find 'unwalkable' proerties, for example.
+    levelLayers, //TODO remove tileLayers?
 
     getObjectByName,
-    getObjectsByType
+    getObjectsByType,
+    getTilesetByName
   };
 }
 

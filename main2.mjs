@@ -3,7 +3,7 @@ const { Game, KeyControls } = pop;
 // import TitleScreen from "./screens/TitleScreen.js";
 import Overworld1Screen from "./resources/Levels/Overworld1Screen.mjs";
 
-const game = new Game(64 * 16, 64 * 16); //Next todo is possible to make this (and all other size things) dynamic?
+const game = new Game(128 * 32, 128 * 32); //Don't know how to make dynamic; must match Tiled map stats.
 const controls = {
   keys: new KeyControls()
 };

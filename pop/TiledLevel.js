@@ -5,7 +5,7 @@
 import pop from "../pop/index.js";
 const { TileMap, Texture, tiledParser } = pop;
 
-const texture = new Texture("./resources/Forest BETA V2/Forest Props.png"); //TODO abstract this
+const texture = new Texture("./resources/map_images/ForestProps.png"); //TODO abstract this
 //PROBELM: must have every single image for the game in a single tilesheet.
 
 

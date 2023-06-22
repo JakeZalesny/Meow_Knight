@@ -38,7 +38,7 @@ class Player extends TileSprite {
         this.controls = controls
         this.mousecontrols = mousecontrols
         this.hitBox = {x: 1, y: 18, w: 13, h: 16}
-        this.hurtBox = {x: 1, y: 18, w: 42, h: 16}
+        this.hurtBox = {x: 1, y: 18, w: 34, h: 16}
         this.attacking = false;
         this.doDamage = false
         this.dodging = false;
@@ -48,7 +48,7 @@ class Player extends TileSprite {
         anims.add("idle", [0, 1, 2, 3, 4, 5].map(y => ({x:0, y})), 0.1)
         this.anims.add("run", [0, 1, 2, 3, 4, 5, 6, 7].map(y=> ({x:0, y})), 0.1);
         this.anims.add("dodge", [0, 1, 2, 3, 4, 5, 6, 7].map(y=> ({x:0, y})), 0.1);
-        this.anims.add("attack_1", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(y=> ({x:0, y})), 0.1);
+        this.anims.add("attack_1", [0, 1, 2, 3, 4, 5, 6, 7, 8].map(y=> ({x:0, y})), 0.07);
         anims.play("idle")
 
     }
@@ -121,7 +121,7 @@ class Player extends TileSprite {
             } else this.doDamage = false
 
             // when to stop animation
-            if(this.frame.y == 9) {
+            if(this.frame.y == 8) {
                 this.attacking = false;
                 this.frame.y = 0;
             }
@@ -143,8 +143,7 @@ class Player extends TileSprite {
 
 
 
-        this.mousecontrols.update(); 
-        
+        this.mousecontrols.update();  
     }
 }
 

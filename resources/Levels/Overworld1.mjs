@@ -22,17 +22,13 @@ import TiledLevelMulti from "../../pop/TiledLevelMulti.js";
 // import Spikes from "../entities/Spikes.js";
 // import Totem from "../entities/Totem.js";
 
-class Overworld1Screen extends Container {
-    constructor(game, controls, gameState) {
+class Overworld1 extends Container {
+    constructor(camera) {
         super();
-        this.game = game;
-        this.controls = controls;
-        this.gameState = gameState; //Removed gamestate param as well (check all lower stuff)
+        //Removed gamestate param as well (check all lower stuff)
         //   this.screens = screens; //Removed screens parameter (check all lower stuff)
 
-        this.camera = this.add(new Camera(null, { w: game.w, h: game.h }));
-
-        this.addAfter = [];
+        this.camera = camera;
 
         // Either load from url or memory
         const levelUrl = `resources/Levels/ForestOverworld.tmj`; //if more levels, implement different
@@ -43,33 +39,38 @@ class Overworld1Screen extends Container {
         //     : Assets.json(levelUrl);
 
         const level = Assets.json(levelUrl);
-        //   console.log(level);
-        level.then(json => this.setupLevel(json, level)).then(() => { //expecting one of these to be an array and t's not
+        this.level = level; 
+        //   console.log(level);;
+
+    }
+
+    async init() {
+        this.level.then(json => this.setupLevel(json, this.camera)).then(() => { //expecting one of these to be an array and t's not
             // Level is loaded
             this.loaded = true;
             // if (gameState.spawn) {
             //   this.player.pos.copy(this.map.mapToPixelPos(gameState.spawn));
             // }
-        });
+        });    
     }
 
-    setupLevel(json, parsed) {
+    setupLevel(json, camera) {
         // console.log(json);
         // console.log(parsed);
-        const { camera, controls } = this; //removed gamestate param
+        // const { camera, controls } = this; //removed gamestate param
 
         // const map = new TiledLevel(json);
-        const map = new TiledLevelMulti(json);
+        const map = new TiledLevelMulti(json); 
 
         //   const player = new Player(controls, map, gameState.hp); //TODO this is the player
         //   player.pos.copy(map.spawns.player);
 
         camera.worldSize = { w: map.w, h: map.h }; //Thus, need a mapw and maph in the LevelMulti class.
-        console.log(camera.worldSize);
+        // console.log(camera.worldSize);
         //   camera.setSubject(player);
 
         // Add the layers in the correct Z order
-        this.map = map.mapLayers.map(tileLayer => {camera.add(tileLayer)}) ; //Modifed to be a map over each TileMap.
+        this.map = map.mapLayers.map(tileLayer => {camera.children.unshift(tileLayer)}); //Modifed to be a map over each TileMap.
         //NOTE: this could possible be incorrect and I should be adding the TiledLevelMulti to the camera.
         //If that is the case, then... I woud need the correct update methods? Other methods?
         //For example, this does not handle the EntitiesLayer at all.
@@ -273,4 +274,4 @@ class Overworld1Screen extends Container {
     }
 }
 
-export default Overworld1Screen;
+export default Overworld1;

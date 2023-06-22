@@ -1,6 +1,7 @@
 
 import pop from "./pop/index.js";
 import GameScreen from "./Screens/GameScreen.mjs"
+import Player from "./entities/player/player.mjs";
 const { Game, KeyControls, MouseControls } = pop;
 
 const game = new Game(window.innerWidth, window.innerHeight - 4);
@@ -9,6 +10,7 @@ const controls = new KeyControls();
 const mousecontrols = new MouseControls();
 
 const screen = new GameScreen(controls, game, mousecontrols)
+screen.init()
 
 game.scene.add(screen)  
 // const player = new Player(controls, mousecontrols);
@@ -26,14 +28,14 @@ game.scene.add(screen)
 // // entity.addDebug(baddie)
 // // entity.addDebug(player)
 
-const controls = new KeyControls(); 
-const mousecontrols = new MouseControls();
+// const controls = new KeyControls(); 
+// const mousecontrols = new MouseControls();
 
 
-game.run(() => {
-    // if(entity.hit(player, baddie)) player.dead = true
-    // if (player.doDamage) {
-    //     if(entity.hurtToHit(player, baddie)) baddie.dead = true
-    // }
+// game.run(() => {
+//     // if(entity.hit(player, baddie)) player.dead = true
+//     // if (player.doDamage) {
+//     //     if(entity.hurtToHit(player, baddie)) baddie.dead = true
+//     // }
 
 game.run();

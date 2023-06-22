@@ -49,6 +49,7 @@ class TiledLevelMulti extends Container { //TiledLevel doesn't extend TIleMap, i
         tileW, 
         tileH, 
         new Texture(`./resources/map_images/${layer.name.replace(/[0-9]/g, '')}.png`)));
+        this.mapLayers.reverse()
 
     //TODO we need the formula for getting the name of the tileset from the layer's name.
 

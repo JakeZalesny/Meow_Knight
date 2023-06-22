@@ -7,17 +7,18 @@ import Goblin from "../entities/baddies/goblin.mjs";
 import BlueWitch from "../entities/NPCs/blue-witch.mjs"
 import Mushroom from "../entities/baddies/mushroom.mjs";
 import FlyingEye from "../entities/baddies/flyingeye.mjs";
+import Overworld1 from "../resources/Levels/Overworld1.mjs";
 
 class GameScreen extends Container {
     constructor(controls, game, mousecontrols) {
         super()
 
-        const level = new Level(game.w*4, game.h*4)
-
         const player = new Player(controls, mousecontrols)
-        player.pos = {x: game.w / 4 + 140, y: game.h / 4};
+        const camera = new Camera(null, {w:game.w, h:game.h})
+        this.add(camera)
 
-        const camera = this.add(new Camera(player, {w:game.w, h:game.h}, {w:level.w, h:level.h}))
+        player.pos = {x: 0, y: 0};
+
         //Enemies Initialization
         const goblin = new Goblin(player)
         goblin.pos = {x: game.w/2 + 400, y: game.h/2}
@@ -26,18 +27,15 @@ class GameScreen extends Container {
         mushroom.pos = {x: 500, y: 500}
 
         const flying_eye = new FlyingEye(player)
-        flying_eye.pos = {x: 900, y: 600}
+        flying_eye.pos = {x: 500, y: 500}
 
         //NPC initialization
         const b_witch = new BlueWitch(player)
         b_witch.pos = {x: 40, y: 50}
 
-        camera.add(level)
-        camera.add(b_witch)
-        camera.add(player)
-        camera.add(goblin)
-        camera.add(mushroom)
-        camera.add(flying_eye)
+        const overworld = new Overworld1(camera)
+        this.overworld = overworld; 
+        
 
         this.goblin = goblin
         this.player = player
@@ -46,18 +44,21 @@ class GameScreen extends Container {
         this.b_witch = b_witch
         this.camera = camera
 
-        // entity.addDebug(goblin)
-        // entity.addDebug(mushroom)
-        // entity.addDebug(player)
-        // entity.addDebug(flying_eye)
+    }
 
-        console.log(this.goblin)
-        console.log(this.goblin.anims)
+    async init() {
+
+        await this.overworld.init()
+        this.camera.setSubject(this.player)     
+        this.camera.add(this.b_witch)
+        this.camera.add(this.player)
+        this.camera.add(this.goblin)
+        this.camera.add(this.mushroom)
+        this.camera.add(this.flying_eye)
     }
     
     update(dt,t) {
         super.update(dt, t)
-
         if(entity.hit(this.player, this.goblin)) this.player.dead = true
         if(this.player.doDamage) {
             if(entity.hurtToHit(this.player, this.goblin)) this.goblin.dead = true

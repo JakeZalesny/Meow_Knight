@@ -2,7 +2,7 @@ import Texture from "../../pop/Texture.js"
 import TileMap from "../../pop/TileMap.js"
 import math from "../../pop/utils/math.js"
 
-const texture = new Texture("/resources/PixiVan Forest (Beta)/Ground Tileset.png");
+// const texture = new Texture("/resources/PixiVan Forest (Beta)/Ground Tileset.png");
 
 class Level extends TileMap {
     constructor(w, h) {

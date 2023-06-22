@@ -46,9 +46,9 @@ class GameScreen extends Container {
         this.b_witch = b_witch
         this.camera = camera
 
-        entity.addDebug(goblin)
-        entity.addDebug(mushroom)
-        entity.addDebug(player)
+        // entity.addDebug(goblin)
+        // entity.addDebug(mushroom)
+        // entity.addDebug(player)
         // entity.addDebug(flying_eye)
 
         console.log(this.goblin)

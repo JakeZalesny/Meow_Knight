@@ -1,3 +1,4 @@
+
 import pop from "./pop/index.js";
 import GameScreen from "./Screens/GameScreen.mjs"
 const { Game, KeyControls, MouseControls } = pop;
@@ -25,6 +26,9 @@ game.scene.add(screen)
 // // entity.addDebug(baddie)
 // // entity.addDebug(player)
 
+const controls = new KeyControls(); 
+const mousecontrols = new MouseControls();
+
 
 game.run(() => {
     // if(entity.hit(player, baddie)) player.dead = true
@@ -32,4 +36,4 @@ game.run(() => {
     //     if(entity.hurtToHit(player, baddie)) baddie.dead = true
     // }
 
-});
+game.run();

@@ -42,27 +42,19 @@ class Mushroom extends Baddie {
     update(dt, t) {
         super.update(dt, t)
 
-        //This was causing an issue due to the distance set. The left run won't come. May need to raise target range. 
-        // // // if(this.pos.x - this.target.pos.x <= (64 * 1.5) && this.pos.y - this.target.pos.y <= 30) {
-        // // //     this.attacking = true
-        // // // }
+        // Determines when he should attack
+        if(this.pos.x - 100 < this.target.pos.x && this.pos.x + 50 > this.target.pos.x && this.pos.y + 200 > this.target.pos.y && this.pos.y < this.target.pos.y) this.attacking = true
 
-        // if(entity.distance(this, this.target) <= 200) this.attacking = true
-
-        
-        // if(this.agro == true && this.target.pos.x > this.pos.x && !this.dodging) {
-        //     this.texture = mushroom_animations["run"]
-        //     this.anims.play("run")
-        // }
-
+        // if agroed plays the run anim
         if(this.agro == true && !this.attacking) {
             this.texture = mushroom_animations["run"]
             this.anims.play("run")
         }
-            else if(!this.agro){
-                this.texture = mushroom_animations["idle"]
-                this.anims.play("idle")
-            }
+            // potentially redundant code leaving comented encase i'm worng
+            // else if(!this.agro){
+            //     this.texture = mushroom_animations["idle"]
+            //     this.anims.play("idle")
+            // }
          
         if(this.target.pos.x > this.pos.x){
             this.scale.x = 3.5

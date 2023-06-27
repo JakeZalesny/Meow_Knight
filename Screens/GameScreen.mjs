@@ -65,7 +65,6 @@ class GameScreen extends Container {
             if(entity.hurtToHit(this.player, this.flying_eye)) this.flying_eye.dead = true
             if(entity.hurtToHit(this.player, this.mushroom)) this.mushroom.dead = true
         }
-
     }
 }
 

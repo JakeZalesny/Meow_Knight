@@ -35,7 +35,7 @@ class TiledLevelMulti extends Container { //TiledLevel doesn't extend TIleMap, i
     //rule: Tiled Layer names must match the format [FileName]N.png, so we can get the layer's name, remove the number, and then get the right png file for texture..
     this.mapLayers = levelLayers.map(layer => new TileMap(
         layer.data.map(cell => {          
-            const tileset = getTilesetByName(layer.name.replace(/[0-9]/g, ''));
+            const tileset = getTilesetByName(layer.name.replace(/(BG|FG)[0-9]*/g, ''));
             const props = tileset.tileproperties; // Extra tile properties: walkable, clouds
             const tilesPerRow = Math.floor(tileset.imagewidth / tileset.tilewidth);
             const idx = cell - tileset.firstgid; // Get correct Tiled offset            //since levelLayer = getLayer("Level"). levellayers.map( layer-> layer.data.map(cell...))?
@@ -48,7 +48,7 @@ class TiledLevelMulti extends Container { //TiledLevel doesn't extend TIleMap, i
         mapH, 
         tileW, 
         tileH, 
-        new Texture(`./resources/map_images/${layer.name.replace(/[0-9]/g, '')}.png`)));
+        new Texture(`./resources/map_images/${layer.name.replace(/(FG|BG)[0-9]*/g, '')}.png`)));
         this.mapLayers.reverse()
 
     //TODO we need the formula for getting the name of the tileset from the layer's name.

@@ -59,7 +59,7 @@ class GameScreen extends Container {
     
     update(dt,t) {
         super.update(dt, t)
-        if(entity.hit(this.player, this.goblin)) this.player.dead = true
+        // if(entity.hit(this.player, this.goblin)) this.player.dead = true
         if(this.player.doDamage) {
             if(entity.hurtToHit(this.player, this.goblin)) this.goblin.dead = true
             if(entity.hurtToHit(this.player, this.flying_eye)) this.flying_eye.dead = true

@@ -24,6 +24,7 @@ class FlyingEye extends Baddie {
         this.agro = false
         this.attacking = false
         this.dodging = false
+        this.agro_offset = {right:55, left:-35, up:0, down:0}
         this.agroRange = 600
         this.hitBox = {x: 0, y: 28, w: 34, h: 36}
         const{anims} = this

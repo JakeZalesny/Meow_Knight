@@ -67,13 +67,13 @@ class Goblin extends Baddie {
          
         if(this.target.pos.x > this.pos.x){
             this.scale.x = 1.5
-            this.anchor.x = 34
+            this.anchor.x = -32
          }
 
          
         if(this.target.pos.x < this.pos.x){
             this.scale.x = -1.5
-            this.anchor.x = 34
+            this.anchor.x = 32
          }
 
 

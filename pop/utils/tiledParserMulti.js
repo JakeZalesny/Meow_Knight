@@ -23,6 +23,11 @@ function tiledParserMulti(json) {
     return filtered;
   };  
 
+  const getLayersByClass = name => {
+    const filtered = layers.filter(l => l.class == name); //THIS IS MINE
+    return filtered;
+  };  
+
   const getTileset = idx => {
     if (!tilesets || !tilesets[idx]) {
       throw new Error(`Tiled error: Missing tileset index ${idx}`);
@@ -39,7 +44,9 @@ function tiledParserMulti(json) {
   };
 
 //   const levelLayer = getLayer("Level"); //TODO change this to expect Floor, and BG(X). GetTileLayers and then not 'name'
-  const levelLayers = getLayersByType('tilelayer');
+//   const levelLayers = getLayersByType('tilelayer');
+  const backgroundLayers = getLayersByClass('background')
+  const foregroundLayers = getLayersByClass('foreground')
 
   const entitiesLayer = getLayer("Entities");       //instead map and 'const layers.find l.type == tileLayer. 
   const entities = entitiesLayer.objects.map(       //Actually, not a find. We want a 'filter' I think.
@@ -82,7 +89,14 @@ function tiledParserMulti(json) {
 //     });
 //   });
 
-  const tileLayers = levelLayers.map(layer => layer.data.map(cell => {                                //TODO this is going to change; will be an array of layers
+  const BGTileLayers = backgroundLayers.map(layer => layer.data.map(cell => {                                //TODO this is going to change; will be an array of layers
+    const idx = cell - tileset.firstgid; // Get correct Tiled offset            //since levelLayer = getLayer("Level"). levellayers.map( layer-> layer.data.map(cell...))?
+    return Object.assign({}, props && props[idx] || {}, {
+      x: idx % tilesPerRow,
+      y: Math.floor(idx / tilesPerRow)
+    });
+  }));
+  const FGTileLayers = foregroundLayers.map(layer => layer.data.map(cell => {                                //TODO this is going to change; will be an array of layers
     const idx = cell - tileset.firstgid; // Get correct Tiled offset            //since levelLayer = getLayer("Level"). levellayers.map( layer-> layer.data.map(cell...))?
     return Object.assign({}, props && props[idx] || {}, {
       x: idx % tilesPerRow,
@@ -98,9 +112,14 @@ function tiledParserMulti(json) {
     mapW,
     mapH,
     // tiles,
-    tileLayers, //Could consider also exporting the entire levelLayers? Yes. Need that too. 'levelLayers.' and then change
+    //tileLayers
+    // levelLayers, //TODO remove tileLayers?
+    BGTileLayers, //Could consider also exporting the entire levelLayers? Yes. Need that too. 'levelLayers.' and then change
+    FGTileLayers, //Could consider also exporting the entire levelLayers? Yes. Need that too. 'levelLayers.' and then change
     //Or rather, needs the 'tilesets' data so it can find 'unwalkable' proerties, for example.
-    levelLayers, //TODO remove tileLayers?
+    foregroundLayers,
+    backgroundLayers,
+    
 
     getObjectByName,
     getObjectsByType,

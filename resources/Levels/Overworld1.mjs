@@ -70,7 +70,8 @@ class Overworld1 extends Container {
         //   camera.setSubject(player);
 
         // Add the layers in the correct Z order
-        this.map = map.mapLayers.map(tileLayer => {camera.children.unshift(tileLayer)}); //Modifed to be a map over each TileMap.
+        this.map = map.background.map(tileLayer => {camera.children.unshift(tileLayer)}); //Modifed to be a map over each TileMap.
+        this.map = map.foreground.map(tileLayer => {camera.add(tileLayer)}); //Modifed to be a map over each TileMap.
         //NOTE: this could possible be incorrect and I should be adding the TiledLevelMulti to the camera.
         //If that is the case, then... I woud need the correct update methods? Other methods?
         //For example, this does not handle the EntitiesLayer at all.

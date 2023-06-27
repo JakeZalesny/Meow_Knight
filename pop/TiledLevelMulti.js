@@ -14,8 +14,8 @@ class TiledLevelMulti extends Container { //TiledLevel doesn't extend TIleMap, i
   constructor(data) {           //lays them on top of each other and renders tem in order? Extend COntainer? And then has child tilemaps.
     super();
     // layers = []; //Layers will be an array of 'tiles's, which are arrays pulled from tiledParser
-    const { tileW, tileH, mapW, mapH, tileLayers, levelLayers, getTilesetByName } = tiledParserMulti(data); //Mhh... 'tiles' array is actually going to be a dict or array of arrays
-    console.log(tileLayers); //Edit TiledParser to return all level layers; floor, BG, FBG, (FG? )
+    const { tileW, tileH, mapW, mapH, BGTileLayers, FGTileLayers, backgroundLayers, foregroundLayers, getTilesetByName } = tiledParserMulti(data); //Mhh... 'tiles' array is actually going to be a dict or array of arrays
+    // console.log(tileLayers); //Edit TiledParser to return all level layers; floor, BG, FBG, (FG? ) Used to be tileLayers and LevelLayers
 
     this.mapW = mapW;
     this.mapH = mapH;
@@ -33,7 +33,7 @@ class TiledLevelMulti extends Container { //TiledLevel doesn't extend TIleMap, i
 
     // console.log("ForestProps2".replace(/[0-9]/g, ''))
     //rule: Tiled Layer names must match the format [FileName]N.png, so we can get the layer's name, remove the number, and then get the right png file for texture..
-    this.mapLayers = levelLayers.map(layer => new TileMap(
+    this.background = backgroundLayers.map(layer => new TileMap(
         layer.data.map(cell => {          
             const tileset = getTilesetByName(layer.name.replace(/(BG|FG)[0-9]*/g, ''));
             const props = tileset.tileproperties; // Extra tile properties: walkable, clouds
@@ -49,7 +49,24 @@ class TiledLevelMulti extends Container { //TiledLevel doesn't extend TIleMap, i
         tileW, 
         tileH, 
         new Texture(`./resources/map_images/${layer.name.replace(/(FG|BG)[0-9]*/g, '')}.png`)));
-        this.mapLayers.reverse()
+    this.background.reverse()
+    
+    this.foreground = foregroundLayers.map(layer => new TileMap(
+        layer.data.map(cell => {          
+            const tileset = getTilesetByName(layer.name.replace(/(BG|FG)[0-9]*/g, ''));
+            const props = tileset.tileproperties; // Extra tile properties: walkable, clouds
+            const tilesPerRow = Math.floor(tileset.imagewidth / tileset.tilewidth);
+            const idx = cell - tileset.firstgid; // Get correct Tiled offset            //since levelLayer = getLayer("Level"). levellayers.map( layer-> layer.data.map(cell...))?
+            return Object.assign({}, props && props[idx] || {}, {
+              x: idx % tilesPerRow,
+              y: Math.floor(idx / tilesPerRow)
+            });
+          }), 
+        mapW, 
+        mapH, 
+        tileW, 
+        tileH, 
+        new Texture(`./resources/map_images/${layer.name.replace(/(FG|BG)[0-9]*/g, '')}.png`)));
 
     //TODO we need the formula for getting the name of the tileset from the layer's name.
 

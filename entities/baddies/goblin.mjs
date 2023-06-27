@@ -50,30 +50,42 @@ class Goblin extends Baddie {
         if(this.agro == true && this.target.pos.x > this.pos.x && !this.dodging && !this.attacking) {
             this.texture = goblin_animations["run"]
             this.anims.play("run")
-            this.scale.x = 1.5
+            
+        }
+
+        else if(this.agro == true && this.target.pos.x < this.pos.x && !this.dodging && !this.attacking) {
+            this.texture = goblin_animations["run"]
+            this.anims.play("run")
+            
         }
 
         if(this.agro == true && !this.dodging && !this.attacking) {
             this.texture = goblin_animations["run"]
             this.anims.play("run")
-            this.scale.x = -1.5
+            
         }
          
         if(this.target.pos.x > this.pos.x){
             this.scale.x = 1.5
-            this.anchor.x = 32
+            this.anchor.x = 34
+         }
+
+         
+        if(this.target.pos.x < this.pos.x){
+            this.scale.x = -1.5
+            this.anchor.x = 34
          }
 
 
         else if(!this.agro){
             this.texture = goblin_animations["idle"]
             this.anims.play("idle")
+            
         }
 
         if(this.attacking) {
             //switch textures
             this.texture = goblin_animations["attack_1"];
-            this.scale.x = -1.5
             this.anims.play("attack_1");
 
             // when to do damage

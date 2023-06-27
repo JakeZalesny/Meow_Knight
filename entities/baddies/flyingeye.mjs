@@ -54,7 +54,7 @@ class FlyingEye extends Baddie {
          
         if(this.target.pos.x > this.pos.x){
             this.scale.x = 1.0
-            this.anchor.x = 16
+            this.anchor.x = -16
          }
 
          if(this.target.pos.x < this.pos.x){

@@ -77,24 +77,30 @@ class Mushroom extends Baddie {
             this.anims.play("idle")
         }
 
-        // if(this.attacking && this.agro) {
-        //     //switch textures
-        //     this.texture = mushroom_animations["attack"]
-        //     this.anims.play("attack")
-        //     console.log(this.frame.y)
-        //     // when to do damage
-        //     if(this.frame.y >= 3 &&  this.frame.y <= 7){
-        //         this.doDamage = true
-        //     } else this.doDamage = false
 
-        //     // when to stop animation
-        //     if(this.frame.y == 7) {
-        //         this.attacking = false;
-        //     }
+        if(this.attacking) {
+            //switch textures
+            this.texture = mushroom_animations["attack"];
+            this.anims.play("attack");
 
+            // when to do damage
+            if(this.frame.y >= 3 &&  this.frame.y <= 7){
+                this.doDamage = true
+            } else this.doDamage = false
 
-        // }
-        
+            // when to stop animation
+            if(this.frame.y == 7) {
+                this.attacking = false;
+                this.frame.y = 0;
+                
+            }
+        }
+
+        else {
+            this.texture = mushroom_animations["idle"]
+            this.anims.play("idle")
+        }
+        console.log(this.frame.y)
 
 
     }

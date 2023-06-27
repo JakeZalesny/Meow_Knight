@@ -44,23 +44,28 @@ class FlyingEye extends Baddie {
         }
 
         
-        if(this.agro == true && this.target.pos.x > this.pos.x && !this.dodging) {
-            this.scale.x = 1.0
-        }
+        // if(this.agro == true && this.target.pos.x > this.pos.x && !this.dodging) {
+        //     this.scale.x = 1.0
+        // }
 
-        if(this.agro == true && !this.dodging) {
-            this.scale.x = -1.0
-        }
+        // if(this.agro == true && !this.dodging) {
+        //     this.scale.x = -1.0
+        // }
          
         if(this.target.pos.x > this.pos.x){
             this.scale.x = 1.0
-            this.anchor.x = 32
+            this.anchor.x = -16
+         }
+
+         if(this.target.pos.x < this.pos.x){
+            this.scale.x = -1.0
+            this.anchor.x = 16
          }
 
 
         else if(!this.agro){
             this.texture = flying_eye_animations["flight"]
-            this.scale.x = -1.0
+            // this.scale.x = -1.0
             this.anims.play("flight")
         }
 

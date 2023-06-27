@@ -22,7 +22,7 @@ class Mushroom extends Baddie {
         this.pivot = { x: 0, y: 0 };
         this.rotation = 0;
         this.target = target
-        this.speed = 1
+        this.speed = 0.5
         this.agro = false
         this.attacking = false
         this.doDamage = false
@@ -74,7 +74,7 @@ class Mushroom extends Baddie {
         }
 
 
-        if(this.attacking) {
+        if(this.attacking && this.agro) {
             //switch textures
             this.texture = mushroom_animations["attack"];
             this.anims.play("attack");
@@ -85,8 +85,9 @@ class Mushroom extends Baddie {
             } else this.doDamage = false
 
             // when to stop animation
-            if(this.frame.y == 7) {
+            if(this.frame.y == 7 && this.agro == true) {
                 this.attacking = false;
+                console.log("Stuck Here")
                 this.frame.y = 0;
                 
             }
@@ -97,6 +98,8 @@ class Mushroom extends Baddie {
             this.anims.play("idle")
         }
         console.log(this.frame.y)
+        console.log(`Attacking: ${this.attacking}`)
+        console.log(`Agro: ${this.agro}`)
 
 
     }

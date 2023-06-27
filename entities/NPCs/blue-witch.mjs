@@ -10,7 +10,7 @@ class BlueWitch extends NPC {
         this.texture = bw_idle
         this.pos = {x:0, y: 0};
         this.anchor = { x: 0, y: 0 };
-        this.scale = { x: 1.5, y: 1.5 };
+        this.scale = { x: 2.0, y: 2.0};
         this.pivot = { x: 0, y: 0 };
         this.rotation = 0;
         this.target = target; 

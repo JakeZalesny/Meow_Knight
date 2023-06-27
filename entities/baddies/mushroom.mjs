@@ -42,20 +42,26 @@ class Mushroom extends Baddie {
         super.update(dt, t)
 
         //This was causing an issue due to the distance set. The left run won't come. May need to raise target range. 
-        if(this.pos.x - this.target.pos.x <= (64 * 1.5) && this.pos.y - this.target.pos.y <= 30) {
-            this.attacking = true
-        }
+        // if(this.pos.x - this.target.pos.x <= (64 * 1.5) && this.pos.y - this.target.pos.y <= 30) {
+        //     this.attacking = true
+        // }
+
+        if(entity.distance(this, this.target) <= 200) this.attacking = true
 
         
-        if(this.agro == true && this.target.pos.x > this.pos.x && !this.dodging) {
-            this.texture = mushroom_animations["run"]
-            this.anims.play("run")
-        }
+        // if(this.agro == true && this.target.pos.x > this.pos.x && !this.dodging) {
+        //     this.texture = mushroom_animations["run"]
+        //     this.anims.play("run")
+        // }
 
-        if(this.agro == true && !this.dodging) {
+        if(this.agro == true && !this.attacking) {
             this.texture = mushroom_animations["run"]
             this.anims.play("run")
         }
+            else if(!this.agro){
+                this.texture = mushroom_animations["idle"]
+                this.anims.play("idle")
+            }
          
         if(this.target.pos.x > this.pos.x){
             this.scale.x = 3.5
@@ -68,38 +74,33 @@ class Mushroom extends Baddie {
          }
 
 
-        else if(!this.agro){
-            this.texture = mushroom_animations["idle"]
-            this.anims.play("idle")
-        }
 
 
-        if(this.attacking && this.agro) {
+        if(this.attacking) {
             //switch textures
             this.texture = mushroom_animations["attack"];
             this.anims.play("attack");
+            this.speed = 0
 
             // when to do damage
             if(this.frame.y >= 3 &&  this.frame.y <= 7){
                 this.doDamage = true
             } else this.doDamage = false
-
             // when to stop animation
-            if(this.frame.y == 7 && this.agro == true) {
+            if(this.frame.y == 6) {
                 this.attacking = false;
-                console.log("Stuck Here")
                 this.frame.y = 0;
-                
+                this.speed = 1
             }
         }
 
-        else {
-            this.texture = mushroom_animations["idle"]
-            this.anims.play("idle")
-        }
+        // // // // // else {
+        // // // // //     this.texture = mushroom_animations["idle"]
+        // // // // //     this.anims.play("idle")
+        // // // // // }
         console.log(this.frame.y)
-        console.log(`Attacking: ${this.attacking}`)
-        console.log(`Agro: ${this.agro}`)
+        // console.log(`Attacking: ${this.attacking}`)
+        // console.log(`Agro: ${this.agro}`)
 
 
     }

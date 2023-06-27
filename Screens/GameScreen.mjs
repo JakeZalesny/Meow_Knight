@@ -44,6 +44,8 @@ class GameScreen extends Container {
         this.b_witch = b_witch
         this.camera = camera
 
+        entity.addDebug(this.mushroom)
+
     }
 
     async init() {

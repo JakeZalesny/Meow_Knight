@@ -22,11 +22,11 @@ class Camera extends Container {
     this.easing = 0.03;
 
     // Debugging tracking rectangle
-    this.deb = this.add(
-      new Rect(0, 0, {
-        fill: "rgba(255, 0, 0, 0.2)"
-      })
-    );
+    // this.deb = this.add(
+    //   new Rect(0, 0, {
+    //     fill: "rgba(255, 0, 0, 0.2)"
+    //   })
+    // );
     this.setTracking(96, 72);
     this.setSubject(subject);
     this.focus();

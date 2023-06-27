@@ -27,6 +27,7 @@ class Mushroom extends Baddie {
         this.attacking = false
         this.doDamage = false
         this.dodging = false
+        this.agro_offset = {right: -50, left:80, up:-150, down:-150}
         this.agroRange = 300
         this.hitBox = {x: 0, y: 28, w: 34, h: 36}
         const{anims} = this
@@ -42,11 +43,11 @@ class Mushroom extends Baddie {
         super.update(dt, t)
 
         //This was causing an issue due to the distance set. The left run won't come. May need to raise target range. 
-        // if(this.pos.x - this.target.pos.x <= (64 * 1.5) && this.pos.y - this.target.pos.y <= 30) {
-        //     this.attacking = true
-        // }
+        // // // if(this.pos.x - this.target.pos.x <= (64 * 1.5) && this.pos.y - this.target.pos.y <= 30) {
+        // // //     this.attacking = true
+        // // // }
 
-        if(entity.distance(this, this.target) <= 200) this.attacking = true
+        // if(entity.distance(this, this.target) <= 200) this.attacking = true
 
         
         // if(this.agro == true && this.target.pos.x > this.pos.x && !this.dodging) {

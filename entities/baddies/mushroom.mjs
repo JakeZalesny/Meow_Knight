@@ -44,36 +44,32 @@ class Mushroom extends Baddie {
         //This was causing an issue due to the distance set. The left run won't come. May need to raise target range. 
         if(this.pos.x - this.target.pos.x <= (64 * 1.5) && this.pos.y - this.target.pos.y <= 30) {
             this.attacking = true
-            
         }
 
         
         if(this.agro == true && this.target.pos.x > this.pos.x && !this.dodging) {
             this.texture = mushroom_animations["run"]
             this.anims.play("run")
-            this.scale.x = 3.5
-            this.anchor.x = 0
-            
         }
 
         if(this.agro == true && !this.dodging) {
             this.texture = mushroom_animations["run"]
             this.anims.play("run")
-            this.scale.x = -3.5
-            this.anchor.x = -60
-            
         }
          
         if(this.target.pos.x > this.pos.x){
             this.scale.x = 3.5
-            this.anchor.x = -60
-            
+            this.anchor.x = -44
+         }
+
+         if(this.target.pos.x < this.pos.x){
+            this.scale.x = -3.5
+            this.anchor.x = 44
          }
 
 
         else if(!this.agro){
             this.texture = mushroom_animations["idle"]
-            this.scale.x = -3.5
             this.anims.play("idle")
         }
 

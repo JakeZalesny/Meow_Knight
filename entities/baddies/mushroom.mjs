@@ -50,11 +50,10 @@ class Mushroom extends Baddie {
             this.texture = mushroom_animations["run"]
             this.anims.play("run")
         }
-            // potentially redundant code leaving comented encase i'm worng
-            // else if(!this.agro){
-            //     this.texture = mushroom_animations["idle"]
-            //     this.anims.play("idle")
-            // }
+            else if(!this.agro){
+                this.texture = mushroom_animations["idle"]
+                this.anims.play("idle")
+            }
          
             // flips him right when player is left
         if(this.target.pos.x > this.pos.x){

@@ -56,11 +56,13 @@ class Mushroom extends Baddie {
             //     this.anims.play("idle")
             // }
          
+            // flips him right when player is left
         if(this.target.pos.x > this.pos.x){
             this.scale.x = 3.5
             this.anchor.x = -44
          }
 
+         // flips him left when player is right
          if(this.target.pos.x < this.pos.x){
             this.scale.x = -3.5
             this.anchor.x = 44

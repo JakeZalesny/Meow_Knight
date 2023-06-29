@@ -48,23 +48,15 @@ class Goblin extends Baddie {
         }
 
         
-        if(this.agro == true && this.target.pos.x > this.pos.x && !this.dodging && !this.attacking) {
+        if(this.agro == true && !this.attacking) {
             this.texture = goblin_animations["run"]
             this.anims.play("run")
-            
         }
+            else if(!this.agro){
+                this.texture = goblin_animations["idle"]
+                this.anims.play("idle")
+            }
 
-        else if(this.agro == true && this.target.pos.x < this.pos.x && !this.dodging && !this.attacking) {
-            this.texture = goblin_animations["run"]
-            this.anims.play("run")
-            
-        }
-
-        if(this.agro == true && !this.dodging && !this.attacking) {
-            this.texture = goblin_animations["run"]
-            this.anims.play("run")
-            
-        }
          
         if(this.target.pos.x > this.pos.x){
             this.scale.x = 1.5

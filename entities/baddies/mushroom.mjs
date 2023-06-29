@@ -14,9 +14,9 @@ const mushroom_animations = {
 
 
 class Mushroom extends Baddie {
-    constructor(target) {
+    constructor(target, pos) {
         super(target, 64, 64, mushroom_animations["idle"]);
-        this.pos = {x:0, y: 0};
+        this.pos = {x: pos.x, y: pos.y};
         this.anchor = { x: 0, y: 0 };
         this.scale = { x: -3.5, y: 3.5 };
         this.pivot = { x: 0, y: 0 };

@@ -15,9 +15,9 @@ const goblin_animations = {
 };
 
 class Goblin extends Baddie {
-    constructor(target) {
+    constructor(target, pos) {
         super(target, 64, 64, goblin_animations["idle"]);
-        this.pos = {x:0, y: 0};
+        this.pos = {x:pos.x, y: pos.y};
         this.anchor = { x: 0, y: 0 };
         this.scale = { x: -1.5, y: 1.5 };
         this.pivot = { x: 0, y: 0 };

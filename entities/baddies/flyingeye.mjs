@@ -12,9 +12,9 @@ const flying_eye_animations = {
 
 
 class FlyingEye extends Baddie {
-    constructor(target) {
+    constructor(target, pos) {
         super(target, 64, 64, flying_eye_animations["flight"]);
-        this.pos = {x:0, y: 0};
+        this.pos = {x:pos.x, y:pos.y};
         this.anchor = { x: 0, y: 0 };
         this.scale = { x: -1.0, y: 1.0 };
         this.pivot = { x: 0, y: 0 };
@@ -25,7 +25,7 @@ class FlyingEye extends Baddie {
         this.attacking = false
         this.dodging = false
         this.agro_offset = {right:55, left:-35, up:0, down:0}
-        this.agroRange = 600
+        this.agroRange = 300
         this.hitBox = {x: 0, y: 28, w: 34, h: 36}
         const{anims} = this
 

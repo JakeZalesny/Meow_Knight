@@ -1,5 +1,5 @@
 import pop from "../../pop/index.js";
-const { TileSprite, Texture, math, entity } = pop;
+const { TileSprite, Texture, math, entity, Timer } = pop;
 
 class Baddie extends TileSprite {
     constructor(target, width, height, texture) {
@@ -14,6 +14,7 @@ class Baddie extends TileSprite {
         this.agro = false
         this.agro_offset = {right:0, left:0, up:0, down:0}
         this.agroRange = 200
+        this.canBeDamaged = true
         this.hitBox = {x: 8, y: 8, w: 16, h: 16}
         const{anims} = this
 
@@ -48,7 +49,15 @@ class Baddie extends TileSprite {
             this.pos.y -= dt * 60 * this.speed
         }
     }
-        
+
+    // makes damageble again after
+    console.log(this.canBeDamaged)
+        if(this.canBeDamaged == false)
+        {
+            if(this.target.frame.y = 0){
+                this.canBeDamaged = true
+            }
+        }
         
         }
 }

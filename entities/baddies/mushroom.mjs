@@ -89,6 +89,8 @@ class Mushroom extends Baddie {
             }
         }
 
+
+        // console.log(this.frame.y)
         // // // // // else {
         // // // // //     this.texture = mushroom_animations["idle"]
         // // // // //     this.anims.play("idle")

@@ -97,7 +97,7 @@ class GameScreen extends Container {
                     console.log(`Mushroom: ${mushroom.lives}`)
                 }
 
-                else if(entity.hurtToHit(this.player, mushroom) && mushroom.lives == 1) mushroom.dead = true
+                else if(entity.hurtToHit(this.player, mushroom) && mushroom.lives == 0) mushroom.dead = true
             })
 
         }

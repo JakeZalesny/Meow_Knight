@@ -30,6 +30,7 @@ class Mushroom extends Baddie {
         this.agro_offset = {right: -50, left:80, up:-150, down:-150}
         this.agroRange = 300
         this.hitBox = {x: 0, y: 28, w: 34, h: 36}
+        this.lives = 12; 
         const{anims} = this
 
         anims.add("idle", [0, 1, 2].map(y => ({x:0, y})), 0.2)

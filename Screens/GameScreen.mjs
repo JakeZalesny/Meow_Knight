@@ -78,13 +78,24 @@ class GameScreen extends Container {
         // if(entity.hit(this.player, this.goblin)) this.player.dead = true
         if(this.player.doDamage) {
             this.goblins.forEach(goblin => {
-                if(entity.hurtToHit(this.player, goblin)) goblin.dead = true  
+                if(entity.hurtToHit(this.player, goblin)) goblin.lives -= 1 
+                
+                // else if(entity.hurtToHit(this.player, goblin) && goblin.lives == 1) goblin.dead = true 
             })  
             this.flying_eyes.forEach(flying_eye => {
-                if(entity.hurtToHit(this.player, flying_eye)) flying_eye.dead = true})
-            this.mushrooms.forEach(mushroom => {
-                if(entity.hurtToHit(this.player, mushroom)) mushroom.dead = true
+                if(entity.hurtToHit(this.player, flying_eye)) flying_eye.lives -= 1
+
+                // else if(entity.hurtToHit(this.player, flying_eye && flying_eye.lives == 1)) flying_eye.dead = true 
             })
+            this.mushrooms.forEach(mushroom => {
+                if(entity.hurtToHit(this.player, mushroom)) {
+                    mushroom.lives -= 1
+                    console.log(`Mushroom: ${mushroom.lives}`)
+                }
+
+                else if(entity.hurtToHit(this.player, mushroom) && mushroom.lives == 1) mushroom.dead = true
+            })
+
         }
     }
 }

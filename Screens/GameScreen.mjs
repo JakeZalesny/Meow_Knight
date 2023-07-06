@@ -92,9 +92,9 @@ class GameScreen extends Container {
                 // else if(entity.hurtToHit(this.player, flying_eye && flying_eye.lives == 1)) flying_eye.dead = true 
             })
             this.mushrooms.forEach(mushroom => {
-                if(entity.hurtToHit(this.player, mushroom) && mushroom.canBeDamaged) {
-                    mushroom.lives -= 1
+                if(entity.hurtToHit(this.player, mushroom) && mushroom.canBeDamaged && this.player.doDamage) {
                     mushroom.canBeDamaged = false
+                    mushroom.lives -= 1
                     console.log(`Mushroom: ${mushroom.lives}`)
                 }
 

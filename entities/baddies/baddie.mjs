@@ -51,12 +51,10 @@ class Baddie extends TileSprite {
     }
 
     // makes damageble again after
-    console.log(this.canBeDamaged)
-        if(this.canBeDamaged == false)
+    // console.log(this.canBeDamaged)
+        if(this.canBeDamaged == false && this.target.frame.y == 0)
         {
-            if(this.target.frame.y = 0){
                 this.canBeDamaged = true
-            }
         }
         
         }

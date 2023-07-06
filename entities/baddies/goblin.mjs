@@ -15,9 +15,9 @@ const goblin_animations = {
 };
 
 class Goblin extends Baddie {
-    constructor(target) {
+    constructor(target, pos) {
         super(target, 64, 64, goblin_animations["idle"]);
-        this.pos = {x:0, y: 0};
+        this.pos = {x:pos.x, y: pos.y};
         this.anchor = { x: 0, y: 0 };
         this.scale = { x: -1.5, y: 1.5 };
         this.pivot = { x: 0, y: 0 };
@@ -27,7 +27,9 @@ class Goblin extends Baddie {
         this.agro = false
         this.attacking = false
         this.dodging = false
+        this.agro_offset = {right: -20, left: 50, up: -30, down: -30}
         this.agroRange = 200
+        this.lives = 4
         this.hitBox = {x: 0, y: 28, w: 34, h: 36}
         const{anims} = this
 
@@ -47,23 +49,15 @@ class Goblin extends Baddie {
         }
 
         
-        if(this.agro == true && this.target.pos.x > this.pos.x && !this.dodging && !this.attacking) {
+        if(this.agro == true && !this.attacking) {
             this.texture = goblin_animations["run"]
             this.anims.play("run")
-            
         }
+            else if(!this.agro){
+                this.texture = goblin_animations["idle"]
+                this.anims.play("idle")
+            }
 
-        else if(this.agro == true && this.target.pos.x < this.pos.x && !this.dodging && !this.attacking) {
-            this.texture = goblin_animations["run"]
-            this.anims.play("run")
-            
-        }
-
-        if(this.agro == true && !this.dodging && !this.attacking) {
-            this.texture = goblin_animations["run"]
-            this.anims.play("run")
-            
-        }
          
         if(this.target.pos.x > this.pos.x){
             this.scale.x = 1.5

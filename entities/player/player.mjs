@@ -43,6 +43,8 @@ class Player extends TileSprite {
         this.doDamage = false
         this.dodging = false;
         this.speed = 1
+        this.alpha = 1
+        this.lives = 6
         const{anims} = this
 
         anims.add("idle", [0, 1, 2, 3, 4, 5].map(y => ({x:0, y})), 0.1)

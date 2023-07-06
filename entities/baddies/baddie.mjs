@@ -1,5 +1,5 @@
 import pop from "../../pop/index.js";
-const { TileSprite, Texture, math, entity } = pop;
+const { TileSprite, Texture, math, entity, Timer } = pop;
 
 class Baddie extends TileSprite {
     constructor(target, width, height, texture) {
@@ -12,7 +12,9 @@ class Baddie extends TileSprite {
         this.target = target
         this.speed = 1
         this.agro = false
+        this.agro_offset = {right:0, left:0, up:0, down:0}
         this.agroRange = 200
+        this.canBeDamaged = true
         this.hitBox = {x: 8, y: 8, w: 16, h: 16}
         const{anims} = this
 
@@ -30,24 +32,30 @@ class Baddie extends TileSprite {
 
         if(this.agro == true){
             // Attack Right
-            if(this.pos.x < this.target.pos.x - this.target.hitBox.w * 3.3){
+            if(this.pos.x < this.target.pos.x + this.agro_offset.right){
             this.pos.x +=  dt * 60 * this.speed
         }
             // Attack Left
-            if(this.pos.x > this.target.pos.x + this.target.hitBox.w){
+            if(this.pos.x > this.target.pos.x + this.agro_offset.left){
             this.pos.x -= dt * 60 * this.speed
         }
             //Attack Down
-            if(this.pos.y < this.target.pos.y - this.hitBox.h/2){
+            if(this.pos.y < this.target.pos.y + this.agro_offset.down){
             this.pos.y += dt * 60 * this.speed
         }
 
             // Attack Up
-            if(this.pos.y > this.target.pos.y - this.hitBox.h/2){
+            if(this.pos.y > this.target.pos.y + this.agro_offset.up){
             this.pos.y -= dt * 60 * this.speed
         }
     }
-        
+
+    // makes damageble again after
+    // console.log(this.canBeDamaged)
+        if(this.canBeDamaged == false && this.target.frame.y == 0)
+        {
+                this.canBeDamaged = true
+        }
         
         }
 }

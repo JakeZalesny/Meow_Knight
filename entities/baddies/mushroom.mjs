@@ -14,21 +14,23 @@ const mushroom_animations = {
 
 
 class Mushroom extends Baddie {
-    constructor(target) {
+    constructor(target, pos) {
         super(target, 64, 64, mushroom_animations["idle"]);
-        this.pos = {x:0, y: 0};
+        this.pos = {x: pos.x, y: pos.y};
         this.anchor = { x: 0, y: 0 };
         this.scale = { x: -3.5, y: 3.5 };
         this.pivot = { x: 0, y: 0 };
         this.rotation = 0;
         this.target = target
-        this.speed = 1
+        this.speed = 0.5
         this.agro = false
         this.attacking = false
         this.doDamage = false
         this.dodging = false
+        this.agro_offset = {right: -50, left:80, up:-150, down:-150}
         this.agroRange = 300
         this.hitBox = {x: 0, y: 28, w: 34, h: 36}
+        this.lives = 12; 
         const{anims} = this
 
         anims.add("idle", [0, 1, 2].map(y => ({x:0, y})), 0.2)
@@ -41,62 +43,61 @@ class Mushroom extends Baddie {
     update(dt, t) {
         super.update(dt, t)
 
-        //This was causing an issue due to the distance set. The left run won't come. May need to raise target range. 
-        if(this.pos.x - this.target.pos.x <= (64 * 1.5) && this.pos.y - this.target.pos.y <= 30) {
-            this.attacking = true
-        }
+        // Determines when he should attack
+        if(this.pos.x - 100 < this.target.pos.x && this.pos.x + 50 > this.target.pos.x && this.pos.y + 200 > this.target.pos.y && this.pos.y < this.target.pos.y) this.attacking = true
 
-        
-        if(this.agro == true && this.target.pos.x > this.pos.x && !this.dodging) {
+        // if agroed plays the run anim
+        if(this.agro == true && !this.attacking) {
             this.texture = mushroom_animations["run"]
             this.anims.play("run")
         }
-
-        if(this.agro == true && !this.dodging) {
-            this.texture = mushroom_animations["run"]
-            this.anims.play("run")
-        }
+            else if(!this.agro){
+                this.texture = mushroom_animations["idle"]
+                this.anims.play("idle")
+            }
          
+            // flips him right when player is left
         if(this.target.pos.x > this.pos.x){
             this.scale.x = 3.5
             this.anchor.x = -44
          }
 
+         // flips him left when player is right
          if(this.target.pos.x < this.pos.x){
             this.scale.x = -3.5
             this.anchor.x = 44
          }
 
 
-        else if(!this.agro){
-            this.texture = mushroom_animations["idle"]
-            this.anims.play("idle")
-        }
 
 
         if(this.attacking) {
             //switch textures
             this.texture = mushroom_animations["attack"];
             this.anims.play("attack");
+            this.speed = 0
 
             // when to do damage
             if(this.frame.y >= 3 &&  this.frame.y <= 7){
                 this.doDamage = true
             } else this.doDamage = false
-
             // when to stop animation
-            if(this.frame.y == 7) {
+            if(this.frame.y == 6) {
                 this.attacking = false;
                 this.frame.y = 0;
-                
+                this.speed = 1
             }
         }
 
-        else {
-            this.texture = mushroom_animations["idle"]
-            this.anims.play("idle")
-        }
+
         // console.log(this.frame.y)
+        // // // // // else {
+        // // // // //     this.texture = mushroom_animations["idle"]
+        // // // // //     this.anims.play("idle")
+        // // // // // }
+        //console.log(this.frame.y)
+        // console.log(`Attacking: ${this.attacking}`)
+        // console.log(`Agro: ${this.agro}`)
 
 
     }

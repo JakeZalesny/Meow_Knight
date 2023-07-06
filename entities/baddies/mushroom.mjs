@@ -96,7 +96,7 @@ class Mushroom extends Baddie {
             this.texture = mushroom_animations["idle"]
             this.anims.play("idle")
         }
-        console.log(this.frame.y)
+        // console.log(this.frame.y)
 
 
     }

@@ -43,7 +43,6 @@ class GameScreen extends Container {
         this.mushroom = mushroom
         this.b_witch = b_witch
         this.camera = camera
-
     }
 
     async init() {
@@ -65,6 +64,8 @@ class GameScreen extends Container {
             if(entity.hurtToHit(this.player, this.flying_eye)) this.flying_eye.dead = true
             if(entity.hurtToHit(this.player, this.mushroom)) this.mushroom.dead = true
         }
+
+        // console.log(this.overworld.levelmap.tilesAtPixelPos({x: 9*32, y: 7*32})); //This is borken
     }
 }
 

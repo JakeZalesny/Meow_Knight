@@ -29,6 +29,7 @@ class Goblin extends Baddie {
         this.dodging = false
         this.agro_offset = {right: -20, left: 50, up: -30, down: -30}
         this.agroRange = 200
+        this.lives = 4
         this.hitBox = {x: 0, y: 28, w: 34, h: 36}
         const{anims} = this
 

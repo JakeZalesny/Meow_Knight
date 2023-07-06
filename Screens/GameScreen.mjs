@@ -16,6 +16,7 @@ class GameScreen extends Container {
         const player = new Player(controls, mousecontrols)
         const camera = new Camera(null, {w:game.w, h:game.h})
         this.add(camera)
+        this.game = game
 
         this.flying_eyes = []
         this.goblins = []
@@ -71,6 +72,9 @@ class GameScreen extends Container {
         this.flying_eyes.forEach(flying_eye => this.camera.add(flying_eye))
         this.goblins.forEach(goblin => this.camera.add(goblin))
         this.mushrooms.forEach(mushroom => this.camera.add(mushroom))
+
+        /// fades into game when start
+        this.camera.flash(1, "#000")
     }
     
     update(dt,t) {
@@ -86,6 +90,13 @@ class GameScreen extends Container {
                 if(entity.hurtToHit(this.player, mushroom)) mushroom.dead = true
             })
         }
+
+        //adds slight camera shake when a mushroom attakcs
+        this.mushrooms.forEach(mushroom => {
+            if(mushroom.attacking && mushroom.frame.y == 5) {
+                this.camera.shake(2, .5)
+            }
+        })
     }
 }
 

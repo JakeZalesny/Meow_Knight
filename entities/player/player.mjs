@@ -52,6 +52,8 @@ class Player extends TileSprite {
 
         this.levelmap; //levelmap.isWalkableAtPixelPos("give it a pixel position");
         // console.log(this.levelmap);
+
+        //pretend the player is 24 wide, 28 tall, for purposes of colliding
         
         
 
@@ -69,6 +71,32 @@ class Player extends TileSprite {
         // console.log(this.levelmap);
         console.log(this.levelmap.isWalkableAtPixelPos({x: 64, y:64}));
     }
+
+    getAbsoluteHitboxPosition() {
+        return {left: this.pos.x + this.hitBox.x, 
+                top: this.pos.y + this.hitBox.y,
+                right: this.pos.x + this.hitBox.w,
+                bottom: this.pos.y + this.hitBox.h}
+        };
+    
+    checkMoveAllowed(intendedX, intendedY) {
+        const selfHitbox = this.getAbsoluteHitboxPosition();
+        // const allowed = (
+        //     intendedX >= selfHitbox.left &&
+        //     intendedX <= selfHitbox.right &&
+        //     intendedY >= selfHitbox.top &&
+        //     intendedY <= selfHitbox.bottom) 
+        const allowed = (
+            this.levelmap.isWalkableAtPixelPos({x: selfHitbox.left, y: selfHitbox.top}) && //top left
+            this.levelmap.isWalkableAtPixelPos({x: selfHitbox.right, y: selfHitbox.top}) && //top right
+            this.levelmap.isWalkableAtPixelPos({x: selfHitbox.left, y: selfHitbox.bottom}) && //bottom left
+            this.levelmap.isWalkableAtPixelPos({x: selfHitbox.right, y: selfHitbox.bottom})) //bottom right
+            // A hit!
+            //possible need to use intendedX and Y now?
+        
+        return allowed;
+    }
+    
 
     update(dt) {
         super.update(dt)
@@ -99,6 +127,7 @@ class Player extends TileSprite {
         if(y && !x && ! this.dodging && !this.attacking){
             this.texture = animations["idle"];
             this.anims.play("idle");
+            if (this.checkMoveAllowed())
             this.pos.y += y * dt * 150
         }
 
@@ -155,9 +184,14 @@ class Player extends TileSprite {
                 this.dodging = false;
                 this.frame.y = 0;
                 this.speed = 1
-            }
-            this.pos.x += x * dt * 150 * this.speed
-            this.pos.y += y * dt * 150 * this.speed
+            } 
+            const moveAttemptX = this.pos.x + (x * dt * 150 * this.speed)
+            const moveAttemptY = this.pos.y + (y * dt * 150 * this.speed)
+            // if(this.levelmap.isWalkableAtPixelPos)
+            this.pos.x = moveAttemptX 
+            this.pos.y = moveAttemptY
+            console.log(this.checkMoveAllowed(moveAttemptX,moveAttemptY))
+            // console.log(this.levelmap.isWalkableAtPixelPos(32,128))
         }
 
 

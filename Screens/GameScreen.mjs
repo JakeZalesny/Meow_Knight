@@ -12,9 +12,14 @@ import Overworld1 from "../resources/Levels/Overworld1.mjs";
 class GameScreen extends Container {
     constructor(controls, game, mousecontrols) {
         super()
-
-        const player = new Player(controls, mousecontrols)
+        
         const camera = new Camera(null, {w:game.w, h:game.h})
+
+        const overworld = new Overworld1(camera)
+        this.overworld = overworld; 
+
+        const player = new Player(controls, mousecontrols) //pass it  overworld.levelmap,
+        
         this.add(camera)
         this.game = game
 
@@ -49,8 +54,7 @@ class GameScreen extends Container {
         const b_witch = new BlueWitch(player)
         b_witch.pos = {x: 5, y: 50}
 
-        const overworld = new Overworld1(camera)
-        this.overworld = overworld; 
+        
         
         this.player = player
         this.b_witch = b_witch

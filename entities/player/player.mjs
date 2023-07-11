@@ -12,6 +12,8 @@ const dodge = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Dodge
 const jump = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Jump.png");
 const damaged = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Take_Damage.png");
 const death = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Death.png");
+// const heart = new Texture("./resources/Hearts/Hearts/PNG/animated/border/heart_animated_1.png")
+// const heart_texture = new TileSprite(heart, 18, 17)
 
 
 const animations = {
@@ -45,6 +47,7 @@ class Player extends TileSprite {
         this.speed = 1
         this.alpha = 1
         this.lives = 6
+        // this.hearts = []
         const{anims} = this
 
         anims.add("idle", [0, 1, 2, 3, 4, 5].map(y => ({x:0, y})), 0.1)
@@ -57,9 +60,11 @@ class Player extends TileSprite {
 
     update(dt) {
         super.update(dt)
+        
+        // console.log(`Hearts: ${this.hearts}`)
         const {x, y, action} = this.controls;
         const {up, down, move} = this.mousecontrols;
-
+        // this.hearts.pos = {x: this.x, y: this.y + 190}
         // Attacks
         if(this.mousecontrols.pressed && !this.dodging) {
             this.attacking = true; 

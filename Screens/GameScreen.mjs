@@ -8,6 +8,7 @@ import BlueWitch from "../entities/NPCs/blue-witch.mjs"
 import Mushroom from "../entities/baddies/mushroom.mjs";
 import FlyingEye from "../entities/baddies/flyingeye.mjs";
 import Overworld1 from "../resources/Levels/Overworld1.mjs";
+import heart_player from "../entities/heart.mjs"
 
 class GameScreen extends Container {
     constructor(controls, game, mousecontrols) {
@@ -29,6 +30,8 @@ class GameScreen extends Container {
         const goblin_right_2 = new Goblin(player, {x: 1500, y: 400})
         this.goblins.push(goblin_right_1)
         this.goblins.push(goblin_right_2)
+
+        this.heart = new heart_player({x: 20, y:20})
 
         
         
@@ -66,12 +69,19 @@ class GameScreen extends Container {
         this.camera.setSubject(this.player)     
         this.camera.add(this.b_witch)
         this.camera.add(this.player)
+        this.camera.add(this.heart)
         // this.camera.add(this.goblin)
         // this.camera.add(this.mushroom)
         // this.camera.add(this.flying_eye)
         this.flying_eyes.forEach(flying_eye => this.camera.add(flying_eye))
         this.goblins.forEach(goblin => this.camera.add(goblin))
         this.mushrooms.forEach(mushroom => this.camera.add(mushroom))
+
+        // let player_hearts = this.player.hearts
+
+        // player_hearts.forEach(heart => {this.camera.add(heart)})
+
+
 
         /// fades into game when start
         this.camera.flash(1, "#000")
@@ -80,32 +90,38 @@ class GameScreen extends Container {
     update(dt,t) {
         super.update(dt, t)
         // if(entity.hit(this.player, this.goblin)) this.player.dead = true
+        // console.log("Lives: ")   
+        // console.log(`Camera Log: ${this.player.hearts}`)
         if(this.player.doDamage) {
             this.goblins.forEach(goblin => {
-                if(entity.hurtToHit(this.player, goblin)) goblin.lives -= 1 
+                if(entity.hurtToHit(this.player, goblin) && goblin.canBeDamaged && this.player.doDamage) {
+                    goblin.canBeDamaged = false
+                    goblin.lives -= 1 }
                 
-                // else if(entity.hurtToHit(this.player, goblin) && goblin.lives == 1) goblin.dead = true 
+                else if(entity.hurtToHit(this.player, goblin) && goblin.lives <= 0) goblin.dead = true 
             })  
             this.flying_eyes.forEach(flying_eye => {
-                if(entity.hurtToHit(this.player, flying_eye)) flying_eye.lives -= 1
+                if(entity.hurtToHit(this.player, flying_eye) && flying_eye.canBeDamaged && this.player.doDamage) {
+                    flying_eye.canBeDamaged = false
+                    flying_eye.lives -= 1
+                }
 
-                // else if(entity.hurtToHit(this.player, flying_eye && flying_eye.lives == 1)) flying_eye.dead = true 
+                else if(entity.hurtToHit(this.player, flying_eye) && flying_eye.lives <= 0) flying_eye.dead = true 
             })
             this.mushrooms.forEach(mushroom => {
                 if(entity.hurtToHit(this.player, mushroom) && mushroom.canBeDamaged && this.player.doDamage) {
                     mushroom.canBeDamaged = false
                     mushroom.lives -= 1
-                    console.log(`Mushroom: ${mushroom.lives}`)
                 }
 
-                else if(entity.hurtToHit(this.player, mushroom) && mushroom.lives == 0) mushroom.dead = true
+                else if(entity.hurtToHit(this.player, mushroom) && mushroom.lives <= 0) mushroom.dead = true
             })
 
         }
 
         //adds slight camera shake when a mushroom attakcs
         this.mushrooms.forEach(mushroom => {
-            if(mushroom.attacking && mushroom.frame.y == 5) {
+            if(mushroom.attacking && mushroom.frame.y == 5 && !mushroom.dead) {
                 this.camera.shake(2, .5)
             }
         })

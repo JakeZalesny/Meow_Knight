@@ -42,7 +42,7 @@ class Goblin extends Baddie {
 
     update(dt, t) {
         super.update(dt, t)
-
+        // console.log(this.lives)
         //This was causing an issue due to the distance set. The left run won't come. May need to raise target range. 
         if(this.pos.x - this.target.pos.x <= (64 * 1.5) && this.pos.y - this.target.pos.y <= (64 * 1.5)) {
             this.attacking = true
@@ -94,7 +94,6 @@ class Goblin extends Baddie {
             }
         }
         
-
 
     }
 }

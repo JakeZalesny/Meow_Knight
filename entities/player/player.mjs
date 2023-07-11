@@ -47,12 +47,24 @@ class Player extends TileSprite {
         this.lives = 6
         const{anims} = this
 
+        this.levelmap; //levelmap.isWalkableAtPixelPos("give it a pixel position");
+        // console.log(this.levelmap);
+        
+        
+
         anims.add("idle", [0, 1, 2, 3, 4, 5].map(y => ({x:0, y})), 0.1)
         this.anims.add("run", [0, 1, 2, 3, 4, 5, 6, 7].map(y=> ({x:0, y})), 0.1);
         this.anims.add("dodge", [0, 1, 2, 3, 4, 5, 6, 7].map(y=> ({x:0, y})), 0.1);
         this.anims.add("attack_1", [0, 1, 2, 3, 4, 5, 6, 7, 8].map(y=> ({x:0, y})), 0.07);
         anims.play("idle")
 
+    }
+
+    init(levelmap) {
+        this.levelmap = levelmap;
+        
+        // console.log(this.levelmap);
+        console.log(this.levelmap.isWalkableAtPixelPos({x: 64, y:64}));
     }
 
     update(dt) {
@@ -146,6 +158,7 @@ class Player extends TileSprite {
 
 
         this.mousecontrols.update();  
+        
     }
 }
 

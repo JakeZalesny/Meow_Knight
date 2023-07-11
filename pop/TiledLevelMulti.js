@@ -224,9 +224,9 @@ class TiledLevelMulti extends Container { //TiledLevel doesn't extend TIleMap, i
     // console.log(properties.filter(layerProp => layerProp !== undefined))
   }
 
-  isWalkableAtPixelPos(pos) {
+  isWalkableAtPixelPos(pos) { // {x: number, y: number}
     let properties = this.propertiesAtPixelPos(pos);
-    console.log(properties);
+    // console.log(properties);
     let walkable = true;
     properties.map(property => {
         if (property.name == "unwalkable") {

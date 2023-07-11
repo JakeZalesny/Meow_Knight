@@ -41,18 +41,14 @@ class Overworld1 extends Container {
         const level = Assets.json(levelUrl);
         this.level = level; 
         //   console.log(level);;
-        this.levelmap
+        this.levelmap;
 
     }
 
     async init() {
-        this.level.then(json => this.setupLevel(json, this.camera)).then(() => { //expecting one of these to be an array and t's not
-            // Level is loaded
-            this.loaded = true;
-            // if (gameState.spawn) {
-            //   this.player.pos.copy(this.map.mapToPixelPos(gameState.spawn));
-            // }
-        });    
+        await this.level.then(json => this.setupLevel(json, this.camera));
+        
+        this.loaded = true;    
     }
 
     setupLevel(json, camera) {

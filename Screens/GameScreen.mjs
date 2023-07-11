@@ -64,7 +64,11 @@ class GameScreen extends Container {
 
     async init() {
 
-        await this.overworld.init()
+        await this.overworld.init();
+        // console.log(this.overworld);
+        // console.log(this.overworld.loaded);
+        this.player.init(this.overworld.levelmap), //this calls too early?
+
         this.camera.setSubject(this.player)     
         this.camera.add(this.b_witch)
         this.camera.add(this.player)
@@ -80,6 +84,7 @@ class GameScreen extends Container {
     }
     
     update(dt,t) {
+        
         super.update(dt, t)
         // if(entity.hit(this.player, this.goblin)) this.player.dead = true
         if(this.player.doDamage) {

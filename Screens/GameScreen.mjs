@@ -114,7 +114,7 @@ class GameScreen extends Container {
         this.player_hearts.forEach(heart=>{
             heart.pos = {x:this.player.pos.x + dx, y:this.player.pos.y + 17}
             dx -=12
-            console.log(dx)
+            // console.log(dx)
             // console.log(heart.pos)
         })
         // if(entity.hit(this.player, this.goblin)) this.player.dead = true

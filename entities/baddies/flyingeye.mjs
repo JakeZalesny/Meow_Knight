@@ -1,6 +1,6 @@
 import pop from "../../pop/index.js";
 import Baddie from "./baddie.mjs";
-const { TileSprite, Texture, math, entity } = pop;
+const { TileSprite, Texture, math, entity, SoundPool } = pop;
 
 const flying_eye_flight = new Texture("resources/Monsters_Creatures_Fantasy/Flying_eye/Flying_Eye_Flight_64.png")  
 const flying_eye_attack_1 = new Texture("./resources/Monsters_Creatures_Fantasy/Flying_eye/Flying_Eye_Attack_1_64.png")
@@ -10,6 +10,7 @@ const flying_eye_animations = {
     "attack_1":flying_eye_attack_1
 }
 
+const bite = new SoundPool("./resources/sounds/bat.mp3")
 
 class FlyingEye extends Baddie {
     constructor(target, pos) {
@@ -27,6 +28,9 @@ class FlyingEye extends Baddie {
         this.agro_offset = {right:55, left:-35, up:0, down:0}
         this.agroRange = 300
         this.lives = 1
+        this.sounding = false
+        this.lastAttack = 0
+        this.attackDelay = .5
         this.hitBox = {x: 0, y: 28, w: 34, h: 36}
         const{anims} = this
 
@@ -41,9 +45,10 @@ class FlyingEye extends Baddie {
         super.update(dt, t)
 
         //This was causing an issue due to the distance set. The left run won't come. May need to raise target range. 
-        if(this.pos.x - this.target.pos.x <= 70 && this.pos.y - this.target.pos.y <= 70) {
+        if(this.lastAttack > this.attackDelay && this.pos.x - this.target.pos.x <= 70 && this.pos.y - this.target.pos.y <= 70) {
             this.attacking = true
-        }
+            this.lastAttack = 0
+        } else {this.lastAttack += dt}
 
         
         // if(this.agro == true && this.target.pos.x > this.pos.x && !this.dodging) {
@@ -72,6 +77,10 @@ class FlyingEye extends Baddie {
         }
 
         if(this.attacking) {
+            if(!this.sounding) {
+                this.sounding = true
+                bite.play()
+            }
             //switch textures
             this.texture = flying_eye_animations["attack_1"];
             this.anims.play("attack_1");
@@ -86,7 +95,7 @@ class FlyingEye extends Baddie {
                 this.attacking = false;
                 this.frame.y = 0;
             }
-        }
+        } else{this.sounding = false}
         
 
 

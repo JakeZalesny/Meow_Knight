@@ -1,6 +1,6 @@
 import pop from "../../pop/index.js";
 import Sprite from "../../pop/Sprite.js";
-const { TileSprite, Texture, math } = pop;
+const { TileSprite, Texture, math, SoundPool } = pop;
 
 const idle = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Idle_32.png");
 const run = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Run_32.png");
@@ -12,6 +12,7 @@ const dodge = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Dodge
 const jump = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Jump.png");
 const damaged = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Take_Damage.png");
 const death = new Texture("./resources/Meow-Knight/Meow-Knight/Meow-Knight_Death.png");
+const stab = new SoundPool("./resources/sounds/sword.mp3")
 // const heart = new Texture("./resources/Hearts/Hearts/PNG/animated/border/heart_animated_1.png")
 // const heart_texture = new TileSprite(heart, 18, 17)
 
@@ -42,11 +43,14 @@ class Player extends TileSprite {
         this.hitBox = {x: 1, y: 18, w: 13, h: 16}
         this.hurtBox = {x: 1, y: 18, w: 34, h: 16}
         this.attacking = false;
+        this.lastAttack = 0
+        this.attackDelay = 1
         this.doDamage = false
         this.dodging = false;
         this.speed = 1
         this.alpha = 1
         this.lives = 6
+        this.sounding = false
         // this.hearts = []
         const{anims} = this
 
@@ -69,7 +73,7 @@ class Player extends TileSprite {
         this.levelmap = levelmap;
         
         // console.log(this.levelmap);
-        console.log(this.levelmap.isWalkableAtPixelPos({x: 64, y:64}));
+        // console.log(this.levelmap.isWalkableAtPixelPos({x: 64, y:64}));
     }
 
     getAbsoluteHitboxPosition() {
@@ -106,9 +110,10 @@ class Player extends TileSprite {
         const {up, down, move} = this.mousecontrols;
         // this.hearts.pos = {x: this.x, y: this.y + 190}
         // Attacks
-        if(this.mousecontrols.pressed && !this.dodging) {
+        if(this.mousecontrols.pressed && !this.dodging && this.lastAttack > this.attackDelay) {
             this.attacking = true; 
-        }
+            this.lastAttack = 0
+        } else{ this.lastAttack += dt}
         
         //Dodge movement handling
         if(action && !this.attacking && (x || y)) {
@@ -160,6 +165,10 @@ class Player extends TileSprite {
         // Attacking animation
         if(this.attacking) {
             //switch textures
+            if(!this.sounding) {
+                this.sounding = true
+                stab.play()
+            }
             this.texture = animations["attack_1"];
             this.anims.play("attack_1");
 
@@ -173,6 +182,8 @@ class Player extends TileSprite {
                 this.attacking = false;
                 this.frame.y = 0;
             }
+        } else{
+            this.sounding = false
         }
 
         // dodging animation

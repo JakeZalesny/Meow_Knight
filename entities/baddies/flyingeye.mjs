@@ -4,13 +4,13 @@ const { TileSprite, Texture, math, entity, SoundPool } = pop;
 
 const flying_eye_flight = new Texture("resources/Monsters_Creatures_Fantasy/Flying_eye/Flying_Eye_Flight_64.png")  
 const flying_eye_attack_1 = new Texture("./resources/Monsters_Creatures_Fantasy/Flying_eye/Flying_Eye_Attack_1_64.png")
+const bite = new SoundPool("./resources/sounds/bat.mp3")
 
 const flying_eye_animations = {
     "flight":flying_eye_flight,
     "attack_1":flying_eye_attack_1
 }
 
-const bite = new SoundPool("./resources/sounds/bat.mp3")
 
 class FlyingEye extends Baddie {
     constructor(target, pos) {
@@ -44,20 +44,12 @@ class FlyingEye extends Baddie {
     update(dt, t) {
         super.update(dt, t)
 
-        //This was causing an issue due to the distance set. The left run won't come. May need to raise target range. 
+        // Determines when he should attack by how long ago he last attakced and target location
         if(this.lastAttack > this.attackDelay && this.pos.x - this.target.pos.x <= 70 && this.pos.y - this.target.pos.y <= 70) {
             this.attacking = true
             this.lastAttack = 0
         } else {this.lastAttack += dt}
 
-        
-        // if(this.agro == true && this.target.pos.x > this.pos.x && !this.dodging) {
-        //     this.scale.x = 1.0
-        // }
-
-        // if(this.agro == true && !this.dodging) {
-        //     this.scale.x = -1.0
-        // }
          
         if(this.target.pos.x > this.pos.x){
             this.scale.x = 1.0

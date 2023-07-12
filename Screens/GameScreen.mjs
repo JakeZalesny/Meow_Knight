@@ -1,7 +1,6 @@
 import Camera from "../pop/Camera.js";
 import Container from "../pop/Container.js";
 import entity from "../pop/utils/entity.js";
-import Level from "../resources/Levels/testLevel.mjs";
 import Player from "../entities/player/player.mjs";
 import Goblin from "../entities/baddies/goblin.mjs";
 import BlueWitch from "../entities/NPCs/blue-witch.mjs"
@@ -50,8 +49,6 @@ class GameScreen extends Container {
         this.player_hearts.push(this.heart_5)
         this.player_hearts.push(this.heart_6)
 
-
-        
         
         const mushroom_middle_1 = new Mushroom(player, {x: 500, y: 500})
         const mushroom_lower_2 = new Mushroom(player, {x: 900, y: 1205})
@@ -117,7 +114,6 @@ class GameScreen extends Container {
             // console.log(dx)
             // console.log(heart.pos)
         })
-        // if(entity.hit(this.player, this.goblin)) this.player.dead = true
         // console.log("Lives: ")   
         // console.log(`Camera Log: ${this.player.hearts}`)
         if(this.player.doDamage) {

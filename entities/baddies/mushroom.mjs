@@ -5,6 +5,7 @@ const { TileSprite, Texture, math, entity, SoundPool } = pop;
 const mushroom_run = new Texture("./resources/Monsters_Creatures_Fantasy/Mushroom/Mushroom_Run_64.png") 
 const mushroom_idle = new Texture("./resources/Monsters_Creatures_Fantasy/Mushroom/Mushroom_Idle_64.png") 
 const mushroom_attack = new Texture("./resources/Monsters_Creatures_Fantasy/Mushroom/Mushroom_attack_1_64.png")
+const smash = new SoundPool("./resources/sounds/mushroom.mp3")
 
 const mushroom_animations = {
     "run":mushroom_run,
@@ -12,7 +13,6 @@ const mushroom_animations = {
     "attack":mushroom_attack
 }
 
-const smash = new SoundPool("./resources/sounds/mushroom.mp3")
 
 
 
@@ -50,7 +50,7 @@ class Mushroom extends Baddie {
     update(dt, t) {
         super.update(dt, t)
 
-        // Determines when he should attack
+        // Determines when he should attack by how long ago he last attakced and target location
         if(this.lastAttack > this.attackDelay && this.pos.x - 100 < this.target.pos.x && this.pos.x + 50 > this.target.pos.x && this.pos.y + 200 > this.target.pos.y && this.pos.y < this.target.pos.y) {
             this.lastAttack = 0
             this.attacking = true
@@ -66,7 +66,7 @@ class Mushroom extends Baddie {
                 this.anims.play("idle")
             }
          
-            // flips him right when player is left
+        // flips him right when player is left
         if(this.target.pos.x > this.pos.x){
             this.scale.x = 3.5
             this.anchor.x = -44
@@ -77,9 +77,6 @@ class Mushroom extends Baddie {
             this.scale.x = -3.5
             this.anchor.x = 44
          }
-
-
-
 
         if(this.attacking) {
 
@@ -106,17 +103,6 @@ class Mushroom extends Baddie {
         } else {
             this.sounding = false
         }
-
-
-        // console.log(this.frame.y)
-        // // // // // else {
-        // // // // //     this.texture = mushroom_animations["idle"]
-        // // // // //     this.anims.play("idle")
-        // // // // // }
-        //console.log(this.frame.y)
-        // console.log(`Attacking: ${this.attacking}`)
-        // console.log(`Agro: ${this.agro}`)
-
 
     }
 }

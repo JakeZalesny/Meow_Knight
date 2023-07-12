@@ -10,7 +10,7 @@ class heart_player extends TileSprite {
         const{anims} = this
         this.pos = pos;
         this.anchor = { x: 0, y: 0 };
-        this.scale = { x: 2, y: 2 };
+        this.scale = { x: 0.7, y: 0.7 };
         this.pivot = { x: 0, y: 0 };
         this.rotation = 0;
     }

@@ -36,7 +36,20 @@ class GameScreen extends Container {
         this.goblins.push(goblin_right_1)
         this.goblins.push(goblin_right_2)
 
-        this.heart = new heart_player({x: 20, y:20})
+        this.player_hearts = []
+        this.heart = new heart_player(null)
+        this.heart_2 = new heart_player(null)
+        this.heart_3 = new heart_player(null)
+        this.heart_4 = new heart_player(null)
+        this.heart_5 = new heart_player(null)
+        this.heart_6 = new heart_player(null)
+        this.player_hearts.push(this.heart)
+        this.player_hearts.push(this.heart_2)
+        this.player_hearts.push(this.heart_3)
+        this.player_hearts.push(this.heart_4)
+        this.player_hearts.push(this.heart_5)
+        this.player_hearts.push(this.heart_6)
+
 
         
         
@@ -71,14 +84,14 @@ class GameScreen extends Container {
         this.camera.setSubject(this.player)     
         this.camera.add(this.b_witch)
         this.camera.add(this.player)
-        this.camera.add(this.heart)
+        // this.camera.add(this.heart)
         // this.camera.add(this.goblin)
         // this.camera.add(this.mushroom)
         // this.camera.add(this.flying_eye)
         this.flying_eyes.forEach(flying_eye => this.camera.add(flying_eye))
         this.goblins.forEach(goblin => this.camera.add(goblin))
         this.mushrooms.forEach(mushroom => this.camera.add(mushroom))
-
+        this.player_hearts.forEach(heart=> this.camera.add(heart))
         // let player_hearts = this.player.hearts
 
         // player_hearts.forEach(heart => {this.camera.add(heart)})
@@ -91,6 +104,14 @@ class GameScreen extends Container {
     
     update(dt,t) {
         super.update(dt, t)
+        // this.heart.pos = {x:this.player.pos.x + 10, y:this.player.pos.y + 17}
+        let dx = 38
+        this.player_hearts.forEach(heart=>{
+            heart.pos = {x:this.player.pos.x + dx, y:this.player.pos.y + 17}
+            dx -=12
+            console.log(dx)
+            // console.log(heart.pos)
+        })
         // if(entity.hit(this.player, this.goblin)) this.player.dead = true
         // console.log("Lives: ")   
         // console.log(`Camera Log: ${this.player.hearts}`)

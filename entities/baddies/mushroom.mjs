@@ -38,8 +38,8 @@ class Mushroom extends Baddie {
         this.lastAttack = 0
         // controls time in between attacks
         this.attackDelay = 1
+        // this.baddie_helathBar = new baddie_helathBar({x: this.pos.x, y: this.pos.y}, this)
         const{anims} = this
-
         anims.add("idle", [0, 1, 2].map(y => ({x:0, y})), 0.2)
         anims.add("run", [0, 1, 2, 3, 4, 5, 6, 7].map(y => ({x:0, y})), 0.2)
         anims.add("attack", [0, 1, 2, 3, 4, 5, 6].map(y => ({x:0, y})), 0.2)
@@ -67,13 +67,13 @@ class Mushroom extends Baddie {
             }
          
         // flips him right when player is left
-        if(this.target.pos.x > this.pos.x){
+        if(this.target.pos.x > this.pos.x && !this.attacking){
             this.scale.x = 3.5
             this.anchor.x = -44
          }
 
          // flips him left when player is right
-         if(this.target.pos.x < this.pos.x){
+         if(this.target.pos.x < this.pos.x && !this.attacking){
             this.scale.x = -3.5
             this.anchor.x = 44
          }

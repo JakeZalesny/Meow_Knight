@@ -1,6 +1,5 @@
 import pop from "../../pop/index.js";
 import Baddie from "./baddie.mjs";
-import baddie_helathBar from "./baddie_healthBar.mjs";
 const { TileSprite, Texture, math, entity, SoundPool } = pop;
 
 const mushroom_run = new Texture("./resources/Monsters_Creatures_Fantasy/Mushroom/Mushroom_Run_64.png") 

@@ -1,11 +1,12 @@
 import pop from "../../pop/index.js";
 import Baddie from "./baddie.mjs";
-const { TileSprite, Texture, math, entity } = pop;
+const { TileSprite, Texture, math, entity, SoundPool } = pop;
 
 const goblin_idle = new Texture("./resources/Monsters_Creatures_Fantasy/Goblin/Goblin_Idle_64.png");
 const goblin_run = new Texture("./resources/Monsters_Creatures_Fantasy/Goblin/Goblin_Run_64.png");
 const goblin_attack = new Texture("./resources/Monsters_Creatures_Fantasy/Goblin/Goblin_Attack_1_64.png");
 const goblin_hit = new Texture("./resources/Monsters_Creatures_Fantasy/Goblin/Take-Hit.png")
+const slash = new SoundPool("./resources/sounds/goblin.mp3")
 
 const goblin_animations = {
     "idle":goblin_idle,
@@ -30,7 +31,10 @@ class Goblin extends Baddie {
         this.agro_offset = {right: -20, left: 50, up: -30, down: -30}
         this.agroRange = 200
         this.lives = 4
+        this.sounding = false
         this.hitBox = {x: 0, y: 28, w: 34, h: 36}
+        this.lastAttack = 0
+        this.attackDelay = 1
         const{anims} = this
 
         anims.add("idle", [0, 1, 2].map(y => ({x:0, y})), 0.1)
@@ -43,10 +47,11 @@ class Goblin extends Baddie {
     update(dt, t) {
         super.update(dt, t)
         // console.log(this.lives)
-        //This was causing an issue due to the distance set. The left run won't come. May need to raise target range. 
-        if(this.pos.x - this.target.pos.x <= (64 * 1.5) && this.pos.y - this.target.pos.y <= (64 * 1.5)) {
+        // Determines when he should attack by how long ago he last attakced and target location
+        if(this.lastAttack > this.attackDelay && this.pos.x - this.target.pos.x <= (64 * 1.5) && this.pos.y - this.target.pos.y <= (64 * 1.5)) {
             this.attacking = true
-        }
+            this.lastAttack = 0
+        } else{ this.lastAttack += dt}
 
         
         if(this.agro == true && !this.attacking) {
@@ -78,6 +83,10 @@ class Goblin extends Baddie {
         }
 
         if(this.attacking) {
+            if(!this.sounding){
+                this.sounding = true
+                slash.play()
+            }
             //switch textures
             this.texture = goblin_animations["attack_1"];
             this.anims.play("attack_1");
@@ -92,6 +101,8 @@ class Goblin extends Baddie {
                 this.attacking = false;
                 this.frame.y = 0;
             }
+        } else{
+            this.sounding = false
         }
         
 

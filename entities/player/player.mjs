@@ -80,17 +80,17 @@ class Player extends TileSprite {
         };
     
     checkMoveAllowed(intendedX, intendedY) {
-        const selfHitbox = this.getAbsoluteHitboxPosition();
+        // const selfHitbox = this.getAbsoluteHitboxPosition();
         // const allowed = (
         //     intendedX >= selfHitbox.left &&
         //     intendedX <= selfHitbox.right &&
         //     intendedY >= selfHitbox.top &&
         //     intendedY <= selfHitbox.bottom) 
         const allowed = (
-            this.levelmap.isWalkableAtPixelPos({x: selfHitbox.left, y: selfHitbox.top}) && //top left
-            this.levelmap.isWalkableAtPixelPos({x: selfHitbox.right, y: selfHitbox.top}) && //top right
-            this.levelmap.isWalkableAtPixelPos({x: selfHitbox.left, y: selfHitbox.bottom}) && //bottom left
-            this.levelmap.isWalkableAtPixelPos({x: selfHitbox.right, y: selfHitbox.bottom})) //bottom right
+            this.levelmap.isWalkableAtPixelPos({x: intendedX + this.hitBox.x, y: intendedY + this.hitBox.y}) && //top left
+            this.levelmap.isWalkableAtPixelPos({x: intendedX + this.hitBox.w, y: intendedY + this.hitBox.y}) && //top right
+            this.levelmap.isWalkableAtPixelPos({x: intendedX + this.hitBox.x, y: intendedY + this.hitBox.h}) && //bottom left
+            this.levelmap.isWalkableAtPixelPos({x: intendedX + this.hitBox.w, y: intendedY + this.hitBox.h})) //bottom right
             // A hit!
             //possible need to use intendedX and Y now?
         
@@ -120,15 +120,33 @@ class Player extends TileSprite {
 
         //Movement for y and diagonal
         if(y && x && ! this.dodging && !this.attacking){
-            this.pos.y += y * dt * 150
+            // this.pos.y += y * dt * 150
+
+            const moveAttemptX = this.pos.x
+            const moveAttemptY = this.pos.y + (y * dt * 150 * this.speed)
+            // console.log(this.checkMoveAllowed(moveAttemptX,moveAttemptY))
+
+            if (this.checkMoveAllowed(moveAttemptX, moveAttemptY)) {
+                this.pos.x = moveAttemptX 
+                this.pos.y = moveAttemptY
+            }
         }
 
         // Only running up and down animation
         if(y && !x && ! this.dodging && !this.attacking){
             this.texture = animations["idle"];
             this.anims.play("idle");
-            if (this.checkMoveAllowed())
-            this.pos.y += y * dt * 150
+            // if (this.checkMoveAllowed())
+            // this.pos.y += y * dt * 150
+
+            const moveAttemptX = this.pos.x
+            const moveAttemptY = this.pos.y + (y * dt * 150 * this.speed)
+            // console.log(this.checkMoveAllowed(moveAttemptX,moveAttemptY))
+
+            if (this.checkMoveAllowed(moveAttemptX, moveAttemptY)) {
+                this.pos.x = moveAttemptX 
+                this.pos.y = moveAttemptY
+            }
         }
 
         //running right animation
@@ -138,7 +156,16 @@ class Player extends TileSprite {
             this.scale.x = 2; 
             this.anchor.x = 0; 
             this.anims.play("run");
-            this.pos.x += x * dt * 150
+            // this.pos.x += x * dt * 150
+
+            const moveAttemptX = this.pos.x + (x * dt * 150 * this.speed)
+            const moveAttemptY = this.pos.y
+            // console.log(this.checkMoveAllowed(moveAttemptX,moveAttemptY))
+
+            if (this.checkMoveAllowed(moveAttemptX, moveAttemptY)) {
+                this.pos.x = moveAttemptX 
+                this.pos.y = moveAttemptY
+            }
         }
 
         //Running left animation
@@ -147,8 +174,16 @@ class Player extends TileSprite {
             this.scale.x = -2;
             this.anchor.x = 32;
             this.anims.play("run");  
-            this.pos.x += x * dt * 150
+            // this.pos.x += x * dt * 150
 
+            const moveAttemptX = this.pos.x + (x * dt * 150 * this.speed)
+            const moveAttemptY = this.pos.y
+            // console.log(this.checkMoveAllowed(moveAttemptX,moveAttemptY))
+
+            if (this.checkMoveAllowed(moveAttemptX, moveAttemptY)) {
+                this.pos.x = moveAttemptX 
+                this.pos.y = moveAttemptY
+            }
         }
         //Idle animation
         if(!x && !y && !this.dodging && !this.attacking) {
@@ -187,10 +222,16 @@ class Player extends TileSprite {
             } 
             const moveAttemptX = this.pos.x + (x * dt * 150 * this.speed)
             const moveAttemptY = this.pos.y + (y * dt * 150 * this.speed)
+            // console.log(this.checkMoveAllowed(moveAttemptX,moveAttemptY))
+
+            if (this.checkMoveAllowed(moveAttemptX, moveAttemptY)) {
+                this.pos.x = moveAttemptX 
+                this.pos.y = moveAttemptY
+            }
+
             // if(this.levelmap.isWalkableAtPixelPos)
-            this.pos.x = moveAttemptX 
-            this.pos.y = moveAttemptY
-            console.log(this.checkMoveAllowed(moveAttemptX,moveAttemptY))
+            
+            
             // console.log(this.levelmap.isWalkableAtPixelPos(32,128))
         }
 
